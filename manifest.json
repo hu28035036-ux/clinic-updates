@@ -1,7 +1,7 @@
 {
   "version": "1.2.3",
   "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.3/_v1.2.3.zip",
-  "sha256": "sha256:7d714b093451f9d526bdbc27087fa2292ab7a5d2a2af08e9acf9d5d6b8dce047",
+  "sha256": "7d714b093451f9d526bdbc27087fa2292ab7a5d2a2af08e9acf9d5d6b8dce047",
   "notes": "- 치료항목 수가/인센티브 기능\n- 통계 분석 개편 (매출 중심)\n- 집계 인센티브 행 추가\n- 자동 업데이트 기능 지원",
   "mandatory": false
 }
