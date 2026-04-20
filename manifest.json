@@ -1,7 +1,7 @@
 {
-  "version": "1.2.3",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.3/_v1.2.3.zip",
-  "sha256": "7d714b093451f9d526bdbc27087fa2292ab7a5d2a2af08e9acf9d5d6b8dce047",
-  "notes": "- 치료항목 수가/인센티브 기능\n- 통계 분석 개편 (매출 중심)\n- 집계 인센티브 행 추가\n- 자동 업데이트 기능 지원",
+  "version": "1.2.4",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.4/_v1.2.4.zip",
+  "sha256": "4c811b7fd40f6becd745e128d28b717bd8b6332acbb23cf89a26760b4e576205",
+  "notes": "- 자동 업데이트 기능 완성\n- 업데이트 전 DB 자동 백업\n- SHA256 접두사 자동 처리\n- updater.bat 롤백 로직 개선",
   "mandatory": false
 }
