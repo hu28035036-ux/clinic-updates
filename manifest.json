@@ -1,7 +1,7 @@
 {
   "version": "1.2.4",
   "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.4/_v1.2.4.zip",
-  "sha256": "4c811b7fd40f6becd745e128d28b717bd8b6332acbb23cf89a26760b4e576205",
+  "sha256": "2d4f25428f3f85bd37ca484f5ed2fdc5965e9a089efcb8fd2e721057d646de04",
   "notes": "- 자동 업데이트 기능 완성\n- 업데이트 전 DB 자동 백업\n- SHA256 접두사 자동 처리\n- updater.bat 롤백 로직 개선",
   "mandatory": false
 }
