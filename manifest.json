@@ -1,7 +1,7 @@
 {
-  "version": "1.2.4",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.4/_v1.2.4.zip",
-  "sha256": "2d4f25428f3f85bd37ca484f5ed2fdc5965e9a089efcb8fd2e721057d646de04",
-  "notes": "- 🐞 문자나라 한글 깨짐 버그 수정 (요청 POST 전환 + 응답 인코딩 자동 감지)\n- 🔄 자동 업데이트 기능 완성 (다운로드+설치)\n- 🛡️ 업데이트 전 DB 자동 백업\n- ✨ SHA256 접두사 자동 처리\n- 🎨 UI: 변경사항 미리보기 + 백업 결과 박스",
+  "version": "1.2.5",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.5/dosu_clinic_v1.2.5.zip",
+  "sha256": "f4ce437216c7a160debc106bac004a025984f16ec1e6888b0aa7c3473579df2d",
+  "notes": "🎨 색상 디자인 리뉴얼 (네이비 헤더 + 밝은 본문)\n🏷️ 서브 박스 제목줄 톤 계층 분리\n👁️ 가독성 보강 (연한 글씨 한 단계 진하게)\n🔤 카드 헤더 글자 넘침/줄바꿈 수정\n✅ 기능·구조 변경 없음 (CSS 한 파일만 수정)",
   "mandatory": false
 }
