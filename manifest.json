@@ -1,7 +1,7 @@
 {
-  "version": "1.2.5",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.5/dosu_clinic_v1.2.5.zip",
-  "sha256": "2650f0e2ebb14571333f4dfdaea0154835558853f3bd4ddb2b077ed36f8fbae5",
-  "notes": "- 🌐 환자 웹 예약 시스템 (Supabase + Vercel 무료)\n- 🔗 병원 PC ↔ 클라우드 동기화 (슬롯 자동 업로드, 예약 폴링)\n- 🏥 예약 탭에 '웹 예약 신청' 사이드 섹션 + 승인/반려\n- ⚙️ 관리자 › 시스템 에 Supabase 연동 카드 추가\n- 🗄️ 마이그레이션 006 (appointments.source)\n- ✅ 기존 기능 완전 유지",
+  "version": "1.2.4",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.4/_v1.2.4.zip",
+  "sha256": "2d4f25428f3f85bd37ca484f5ed2fdc5965e9a089efcb8fd2e721057d646de04",
+  "notes": "- 🐞 문자나라 한글 깨짐 버그 수정 (요청 POST 전환 + 응답 인코딩 자동 감지)\n- 🔄 자동 업데이트 기능 완성 (다운로드+설치)\n- 🛡️ 업데이트 전 DB 자동 백업\n- ✨ SHA256 접두사 자동 처리\n- 🎨 UI: 변경사항 미리보기 + 백업 결과 박스",
   "mandatory": false
 }
