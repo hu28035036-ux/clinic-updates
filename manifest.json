@@ -1,7 +1,7 @@
 {
-  "version": "1.2.5",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.5/dosu_clinic_v1.2.5.zip",
-  "sha256": "f4ce437216c7a160debc106bac004a025984f16ec1e6888b0aa7c3473579df2d",
-  "notes": "🎨 색상 디자인 리뉴얼 (네이비 헤더 + 밝은 본문)\n🏷️ 서브 박스 제목줄 톤 계층 분리\n👁️ 가독성 보강 (연한 글씨 한 단계 진하게)\n🔤 카드 헤더 글자 넘침/줄바꿈 수정\n✅ 기능·구조 변경 없음 (CSS 한 파일만 수정)",
+  "version": "1.2.6",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.6/dosu_clinic_v1.2.6.zip",
+  "sha256": "7109198933a5eb1fcae27b5424bd59716d423501d9020757a6f032e37c90b600",
+  "notes": "🐞 오류 수정 & 편의 개선\n- 예약 현황 표에 운영 종료 시각 라인 누락 문제 수정\n- 상단 정보 바에 메인/서브 접속 주소 표시 + 복사 버튼\n- 서브 IP 자동 감지 개선 (실제 LAN IP 우선)",
   "mandatory": false
 }
