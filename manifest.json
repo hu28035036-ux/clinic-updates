@@ -1,7 +1,7 @@
 {
-  "version": "1.2.7",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.7/dosu_clinic_v1.2.7.zip",
-  "sha256": "c031517b3826495e88c129fa6cb3fa891a13559bb8180f978562b1c89762a4b9",
-  "notes": "⚡ 체외충격파 수동 입력 기능 추가\n- 집계 탭 체외충격파 셀 더블클릭 → 당일 내방 환자 수 직접 입력\n- 통계 이달 요약/날짜별/매출 차트 자동 반영\n- 0 입력 시 자동 삭제\n- 마이그레이션 006 (manual_counts 테이블)",
+  "version": "1.2.8",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.8/dosu_clinic_v1.2.8.zip",
+  "sha256": "b721157ba117d8c8f9156cf81b8b1197b743cc63567e00e7ddd79cffb585e137",
+  "notes": "🔧 체외충격파 집계 탭 — 수동 입력 전용으로 단일화 (예약 기반 합산 제거)\n🐞 업데이트 후 '디자인 변경 미적용' 문제 수정 (CSS 캐시 자동 무효화)",
   "mandatory": false
 }
