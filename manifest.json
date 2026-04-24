@@ -1,7 +1,7 @@
 {
-  "version": "1.2.6",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.6/dosu_clinic_v1.2.6.zip",
-  "sha256": "7109198933a5eb1fcae27b5424bd59716d423501d9020757a6f032e37c90b600",
-  "notes": "🐞 오류 수정 & 편의 개선\n- 예약 현황 표에 운영 종료 시각 라인 누락 문제 수정\n- 상단 정보 바에 메인/서브 접속 주소 표시 + 복사 버튼\n- 서브 IP 자동 감지 개선 (실제 LAN IP 우선)",
+  "version": "1.2.7",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.7/dosu_clinic_v1.2.7.zip",
+  "sha256": "c031517b3826495e88c129fa6cb3fa891a13559bb8180f978562b1c89762a4b9",
+  "notes": "⚡ 체외충격파 수동 입력 기능 추가\n- 집계 탭 체외충격파 셀 더블클릭 → 당일 내방 환자 수 직접 입력\n- 통계 이달 요약/날짜별/매출 차트 자동 반영\n- 0 입력 시 자동 삭제\n- 마이그레이션 006 (manual_counts 테이블)",
   "mandatory": false
 }
