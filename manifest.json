@@ -1,7 +1,7 @@
 {
-  "version": "1.2.9",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.9/dosu_clinic_v1.2.9.zip",
-  "sha256": "ccc5a042f778fb919e6c43667636dcbfbf9de429d45170c6f4fbd79fc313f54e",
-  "notes": "📅 집계+통계 — 월별 → '기간(From~To)' 기반 조회로 개편\n🎛️ 프리셋: 오늘 · 최근 7일 · 이번 달 · 지난 달 · 최근 30일",
+  "version": "1.2.10",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.10/dosu_clinic_v1.2.10.zip",
+  "sha256": "8e503cc7f0655974592d87d9226dc75f7cab9cb46d99a8a50ce844a970507b2f",
+  "notes": "📐 예약 표 가로 폭 창 크기에 맞춰 유동\n- 치료사 많아도 넓은 창에서 가로 스크롤 사라짐\n- 좁은 창은 최소 90px까지 축소 후 스크롤",
   "mandatory": false
 }
