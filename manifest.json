@@ -1,7 +1,7 @@
 {
-  "version": "1.2.11",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.11/dosu_clinic_v1.2.11.zip",
-  "sha256": "4df67f9fb03f934304c8460aeeefc82bd8810e2a96b058a4de2e3fda2ebc39ca",
-  "notes": "📐 예약 표 세로 크기도 창 높이에 유동\n- 이전: max-height 제한으로 창이 커도 표 아래 빈 공간\n- 현재: flex 레이아웃, 표가 창 바닥까지 꽉 채움 (가로+세로 모두 반응형)",
+  "version": "1.2.12",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.12/dosu_clinic_v1.2.12.zip",
+  "sha256": "eb996b23dd1cd0273f83bf8bba57569f1ed8e51b963aff10a8ed2e22385a8c95",
+  "notes": "📐 예약 표 가로 동작 정밀화\n- 각 치료사 열 최소 150px 보장 (셀 쪼그라듦 해결)\n- 치료사 많음 = 표 자체가 옆으로 늘어나며 가로 스크롤\n- 치료사 적음 = 열 확장 (빈 공간 없음)",
   "mandatory": false
 }
