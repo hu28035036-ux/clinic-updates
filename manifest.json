@@ -1,7 +1,7 @@
 {
-  "version": "1.2.13",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.13/dosu_clinic_v1.2.13.zip",
-  "sha256": "a8ae0e64b5003441d221a239d73186ed07f54ac65819576138b243cbfb5033db",
-  "notes": "🐞 예약 표 우측 빈 공간 제거\n- width:100% !important + min-width:max-content 로 확실히 컨테이너 꽉 채움\n- 치료사 많으면 150×N 까지 늘어나 가로 스크롤",
+  "version": "1.2.14",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.14/dosu_clinic_v1.2.14.zip",
+  "sha256": "7c7e170008aa8211e611a1561225bf3bf8e6cada1f926355961927bbbb7e5e6c",
+  "notes": "🎯 예약 탭 우측 빈 공간 근본 해결\n- 진짜 원인: .tab-pane max-width 1500px 제약\n- 예약 탭만 제한 해제 → 화면 끝까지 꽉 참\n- 다른 탭은 1500px 유지 (가독성)",
   "mandatory": false
 }
