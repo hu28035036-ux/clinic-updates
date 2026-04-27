@@ -1,7 +1,7 @@
 {
-  "version": "1.2.14",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.14/dosu_clinic_v1.2.14.zip",
-  "sha256": "7c7e170008aa8211e611a1561225bf3bf8e6cada1f926355961927bbbb7e5e6c",
-  "notes": "🎯 예약 탭 우측 빈 공간 근본 해결\n- 진짜 원인: .tab-pane max-width 1500px 제약\n- 예약 탭만 제한 해제 → 화면 끝까지 꽉 참\n- 다른 탭은 1500px 유지 (가독성)",
+  "version": "1.2.15",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.15/dosu_clinic_v1.2.15.zip",
+  "sha256": "bcb0c3a8899647dc051a35a8b9a0f2444cda3d780c4e88fc26395f9829b6e976",
+  "notes": "🐞 문자나라 SMS 한글 깨짐 진짜 수정\n- UTF-8 → CP949 인코딩 전환 (문자나라 서버가 charset=utf-8 헤더를 무시하고 EUC-KR/CP949 로 자체 해석)\n- 이모지 등은 '?' 로 안전 치환되어 발송 자체는 막히지 않음\n※ code=9 발송 거부는 문자나라 계정/포인트/발신번호 이슈 (별개)",
   "mandatory": false
 }
