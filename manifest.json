@@ -1,7 +1,7 @@
 {
-  "version": "1.2.17",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.17/dosu_clinic_v1.2.17.zip",
-  "sha256": "f6b5a303f18be3a2ea3d4227bdd9d5b94a1bfa36152c3ff97c8ba3502f2ee5d6",
-  "notes": "✨ 점심시간 시스템 설정 추가 — 그 시간대 셀 가로 병합 + 예약 차단 (관리자 ≡ 시스템 운영시간 카드, 기본 OFF, 12:30~13:30)\n✨ 도수치료 예약현황 엑셀 다운로드 추가 — A4 가로 인쇄용. 보드 헤더 [📊 도수치료 엑셀] 버튼\n✨ 신규 환자 중복 등록 차단 — 차트번호 또는 이름+생년월일 중복 시 409 (이름만 같음 = 동명이인 허용)\nDB 변경 없음 — 자동 업데이트 시 데이터 그대로 유지",
+  "version": "1.2.18",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.2.18/dosu_clinic_v1.2.18.zip",
+  "sha256": "f00ee3a7763869ce40eca7370d01d2b96e0cfc00428966ac311211647d6dc4a5",
+  "notes": "🐞 문자나라 발송 결과 오판정 수정 — 정상 발송된 문자가 'code=9 발송 거부' 알람으로 잘못 표시되던 버그 (vendor 신식 응답 9|메시지ID|건수|발신자명 인식)\n✨ 통계탭 엑셀 다운로드 추가 — 조회 기간 보고서 .xlsx (요약/일별통계/치료사별집계 3 시트, A4 가로)\n🐞 통계탭 엑셀 예상매출에 체외충격파 수동 입력분 포함 — 통계탭 화면과 매출 숫자 일치\nDB 변경 없음 — 자동 업데이트 시 데이터 그대로 유지",
   "mandatory": false
 }
