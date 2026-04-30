@@ -123,7 +123,31 @@ C:\Users\<사용자>\AppData\Roaming\도수치료예약\
 
 ## 📜 버전 히스토리
 
-### v1.2.18 (2026-04-28) · 🆕 최신
+### v1.3.1 (2026-04-30) · 🆕 최신
+- 🛡️ **자동 업데이트 hang 수정** — "지금 설치" 후 화면이 "업데이트 중" 에서 멈추던 사고 해결
+- 🔧 updater.bat: `_internal`/`exe` rename 5회 재시도 (안티바이러스/Windows 인덱싱 잠금 해제 대기), 본체 종료 후 3초 대기로 .pyd/.dll unlock 시간 확보
+- 🔧 PowerShell `Expand-Archive` 에 `-ExecutionPolicy Bypass` 명시 (병원 GPO 환경 대응), rollback 콘솔은 `pause` 로 사용자가 메시지 끝까지 확인 가능
+- 🔧 apply_update creationflags `DETACHED_PROCESS|CREATE_NEW_PROCESS_GROUP|CREATE_BREAKAWAY_FROM_JOB` (부모 종료 시 자식 잡힘 방지), 자식 콘솔 `/k → /c` (정상 종료 후 자동 닫힘)
+- 🆕 진단: `GET /api/about/update-log` + 프론트 30초/60초/6분 단계별 안내 박스 + 새 서버 health-check 자동 새로고침
+- 🛡️ **인증 누수 회귀 수정** — `/api/sync/pull/push/now`, `/api/backup`, `/api/mode` 인증 강화 (이전: 같은 네트워크 누구나 DB 파일/sync 큐 노출 가능)
+- 🛡️ **sync 듀얼 인증** — 관리자 토큰 OR `X-Sync-Token` (config.sync_secret 자동 생성). peer 노드 페어링용 `/api/config/sync-secret` (관리자 전용) 신규
+- 🛡️ **GET /api/config 에서 sync_secret 자동 제거** (이전 회귀: 익명 노출 가능했음)
+- 🛡️ **DB 복원 안전성** — 임시 파일 + `PRAGMA integrity_check` + atomic 교체 + `engine.dispose()` (Windows 파일 잠금 회피)
+- 🛡️ **SMS 비밀 노출 차단** — 서버 echo 응답 / urllib 예외 메시지에 평문 passwd/key 가 stderr / DB 에 남던 사고 방지 (자동 마스킹)
+- ⚙️ 데이터 변환(엑셀→환자) 적용 시 spinner + 버튼 비활성화 + 90초 타임아웃, 모달 액션 버튼 sticky
+- ✅ 회귀 방지 테스트 +45건 (124 passed)
+- 🗄️ DB 변경 없음 (config.json 에 sync_secret 자동 추가)
+
+### v1.3.0 (2026-04-30) · AI/RAG 1차 통합 (v1.3.1 에 합본 적용)
+- ✨ **AI 도우미 탭** — 직원이 자연어로 업무 매뉴얼 질문 → 답변 + 출처 + 신뢰도 표시
+- 📚 신규 매뉴얼 6종: 예약문자 작성 / 치료사 미배정 시 문자 / 문자나라 오류 대응 / 백업 / 치료사 휴무 / AI 설정
+- 🔍 키워드 RAG (벡터DB / 임베딩 미사용 — 1차 단계). 매뉴얼에 없는 질문은 LLM 호출 없이 "매뉴얼에서 답을 찾지 못했습니다."
+- ✨ **예약문자 AI 초안 + 발송 전 점검** — `/api/ai/sms/draft`, `/api/ai/sms/validate` (관리자 → AI 설정에서 키 입력 + 활성화 후 사용)
+- 🛡️ **PII 보호** — 환자 PII (이름/전화/생년월일/차트/메모) 검색·전달 차단, 사용자 입력 PII 자동 마스킹, LLM 응답 사후 환각 검증
+- 📊 마이그레이션 m007 (ai_settings) + m008 (ai_usage_logs 8컬럼 확장)
+- 🔒 기본값 enabled=0 — API Key 입력 + 활성화 전까지 모든 LLM 호출 차단
+
+### v1.2.18 (2026-04-28)
 - 🐞 **문자나라 발송 결과 오판정 수정** — 문자가 정상 도착했는데도 화면엔 "발송 거부 (code=9)" 알람이 뜨던 버그
 - 🔍 원인: vendor 가 운영 환경에서 신식 성공 응답 `9|<메시지ID>|<건수>|<발신자명>` (예: `9|103269|1|이중성`) 을 보내는데, 기존 코드는 첫 필드 `9` 만 보고 거부로 판정
 - 🛡️ 수정: 두 번째 필드가 메시지ID 형식(3자리 이상 숫자) 이면 성공으로 인정. `MISSING/ERROR/FAIL/INVALID/EMPTY` 키워드는 여전히 거부 (안전망)
