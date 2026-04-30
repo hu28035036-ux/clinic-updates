@@ -123,7 +123,18 @@ C:\Users\<사용자>\AppData\Roaming\도수치료예약\
 
 ## 📜 버전 히스토리
 
-### v1.3.1 (2026-04-30) · 🆕 최신
+### v1.3.2 (2026-04-30) · 🆕 최신 · 직원 관리 강화
+- 🧑‍⚕️ **치료사 휴무 — 연차/월차 분류** (m009): 휴무 관리 모달에서 치료사별 연차/월차 선택 가능, 캘린더 이벤트 타이틀에 `(연차)`/`(월차)` 표시
+- 🛡️ **회귀 수정**: 동일 `(employee_id, leave_date)` 키로 재 POST 시 payload 값으로 갱신 (이전: 값 무시되어 "연차→월차 변경"이 저장 안 됨)
+- 🆕 `employee_leaves.leave_kind` 컬럼 추가 (default `'annual'`, 기존 row 자동 backfill)
+- 📡 API 응답 통일: `GET/POST /api/employee-leaves` + `/bulk-set` + `/api/therapist-leaves` (alias) 모두 `leave_kind` 포함
+- 🧑‍⚕️ **치료사 정보 — 입사일** (m010): 치료사 수정 모달에 "입사일" 입력칸 추가, 자동변환 `20200101` → `2020-01-01` (생년월일 패턴과 동일)
+- 📊 직원 목록 시트의 치료사 테이블에 "입사일" 컬럼 추가 (의사 테이블에는 표시 안 함)
+- 🆕 `employees.hire_date` 컬럼 추가 (nullable, 기존 row NULL 유지)
+- ✅ 회귀 방지 테스트 +8건 (132 passed): `test_employee_can_manual_contract` / `test_employee_leave_kind` / `test_employee_hire_date`
+- 🗄️ 마이그레이션 정책 — **컬럼 추가만** (DROP/DELETE 없음, 멱등성 보장), 기존 환자/예약/직원/SMS/AI 설정 그대로 유지
+
+### v1.3.1 (2026-04-30) · 보안 + 안정성 패치
 - 🛡️ **자동 업데이트 hang 수정** — "지금 설치" 후 화면이 "업데이트 중" 에서 멈추던 사고 해결
 - 🔧 updater.bat: `_internal`/`exe` rename 5회 재시도 (안티바이러스/Windows 인덱싱 잠금 해제 대기), 본체 종료 후 3초 대기로 .pyd/.dll unlock 시간 확보
 - 🔧 PowerShell `Expand-Archive` 에 `-ExecutionPolicy Bypass` 명시 (병원 GPO 환경 대응), rollback 콘솔은 `pause` 로 사용자가 메시지 끝까지 확인 가능

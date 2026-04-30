@@ -1,7 +1,7 @@
 {
-  "version": "1.3.1",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.1/dosu_clinic_v1.3.1_20260430.zip",
-  "sha256": "d8ca215b0252d90d3d265d06fee33453e4b6e49aef44daeeebd9b9c6c7737f4a",
-  "notes": "🛡️ 보안 + 안정성 패치 (v1.3.0 AI/RAG + v1.3.1 합본).\n• 자동 업데이트 hang 수정 — updater rename 5회 재시도, /k→/c, 진단 로그 + 30/60초/6분 안내\n• 인증 누수 회귀 차단 — /api/sync/*, /backup, /mode 인증 강화 + sync 듀얼 인증 (X-Sync-Token)\n• GET /api/config 에서 sync_secret 자동 제거 (이전 회귀 차단)\n• DB 복원 안전화 (임시파일+integrity_check+atomic), SMS 비밀 자동 마스킹\n• ✨ AI 도우미 탭 (매뉴얼 Q&A, 키워드 RAG, PII 보호) + 예약문자 AI 초안 — 기본 OFF\n• 회귀 방지 테스트 +45건 (124 passed)\nDB 데이터 영향 없음 — 환자/예약/설정 그대로 유지.",
+  "version": "1.3.2",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.2/dosu_clinic_v1.3.2_20260430.zip",
+  "sha256": "323b419528ce4cacf91cdda7bc99240fc3dc7e54cad34ea9ce09e989873a9ea9",
+  "notes": "🧑‍⚕️ 직원 관리 강화.\n• 치료사 휴무 — 연차/월차 분류 (휴무 모달 + 캘린더 타이틀 (연차/월차) 표시)\n• 치료사 정보 — 입사일 입력칸 + 직원 목록 시트 컬럼 (의사는 미표시, 자동변환 20200101 → 2020-01-01)\n• 동일 (employee_id, leave_date) POST 재요청 시 payload 값으로 갱신 (회귀 수정)\n• 마이그레이션 m009 (employee_leaves.leave_kind), m010 (employees.hire_date) 자동 적용 — 컬럼 추가만, 기존 데이터 보존\n• 회귀 방지 테스트 +8건 (132 passed)\nDB 데이터 영향 없음 — 환자/예약/설정 그대로 유지.",
   "mandatory": false
 }
