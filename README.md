@@ -123,17 +123,21 @@ C:\Users\<사용자>\AppData\Roaming\도수치료예약\
 
 ## 📜 버전 히스토리
 
-### v1.3.3 (2026-05-01) · 🆕 최신 · AI/RAG v1 후속 보강
+### v1.3.3 (2026-05-01) · 🆕 최신 · AI/RAG v1 후속 보강 + SDK 진단 강화
 
 > ⚠ **업데이트 적용 전 운영 DB 백업 권장**
 > m011 마이그레이션은 동일 직원·동일 날짜에 **중복으로 등록된 휴무가 있을 경우** 가장 최근 1건만 보존하고 나머지를 자동 정리합니다. 정상 운영 환경에는 중복이 없으므로 영향이 없지만, 안전을 위해 업데이트 전 `%APPDATA%\도수치료예약\clinic.db` 를 별도 위치로 1부 복사해 두는 것을 권장합니다. (자동 백업은 매일 1회 `backups/` 에 보관됨)
+>
+> ℹ️ **재빌드 안내**: 이 v1.3.3 release 의 ZIP 은 2026-05-01 에 SDK 진단 강화 + PyInstaller 번들 누락(이전 빌드에서 openai/anthropic 패키지가 `_internal/` 에서 빠지던 사고) 수정을 포함해 재업로드 되었습니다. 이전 sha256 (`7392b8d5...`) 빌드에서 "AI 설정 → 연결 테스트"가 `openai SDK 미설치` 로 잘못 표시되던 분은 자동 업데이트 다시 받으면 ✅ 사용 가능 으로 정상화됩니다.
 
 - 🛡️ **직원 휴무 중복 차단** (m011): `employee_leaves(employee_id, leave_date)` UNIQUE 제약 추가 — 다중 워커 race 시 동일 직원·동일 날짜 휴무 row 중복 생성 차단
 - 🧹 **마이그레이션 자동 정리** — 기존 중복 row 가 있으면 `(created_at DESC, id DESC)` 최신 1건만 보존, 나머지 삭제. 삭제 대상 row 의 (id, employee_id, leave_date, created_at) 가 stderr 로 한 줄씩 출력되어 사후 추적 100% 가능
 - 🛡️ **AI 사용 로그 outcome 길이 확장**: `AiUsageLog.outcome` 모델 선언 `String(20)` → `String(50)` — `overwrite_not_acknowledged` (26자) 등 긴 outcome 코드가 truncate 없이 DB 에 저장됨 (SQLite VARCHAR 길이 미강제로 m008 마이그레이션 수정 없음)
 - 🛡️ **AI 상태 점검 권한 분리**: `GET /api/ai/health/public` 신설 (인증 불필요, `enabled`/`ready`/`provider`/`api_key_set` 4 필드만 노출) — 일반 사용자가 SMS 탭에서 AI 상태 자체 확인 가능. 기존 `/api/ai/health` 는 admin 전용 그대로 유지
 - ✨ **프론트 SMS 탭 401 fallback 코드 제거** — public endpoint 사용으로 깔끔한 200 응답 흐름
-- ✅ 회귀 방지 테스트 +7건 (175 → 182 passed): `test_employee_leave_unique` (인덱스/IntegrityError/m011 단위) / `test_ai_action_leave T22b` (outcome full-length) / `test_ai_health_public` (public/admin 권한 분리)
+- 🆕 **AI SDK import 진단 메시지 노출 (admin)**: `_check_sdk()` 가 import 실패 시 `(False, "ImportError: ...")` 형태로 사유 보존. admin `/api/ai/health` 응답에 `sdk_errors: {provider: msg}` 필드 추가 (public 엔드포인트엔 미노출). AI 설정 박스 + 연결 테스트 alert 에 사유 inline 표시
+- 🆕 **PyInstaller 번들 누락 방지 (spec)**: `try/except` 제거 — `collect_submodules` 가 빈 리스트면 RuntimeError 로 빌드 즉시 중단. `collect_data_files('openai'/'anthropic')` 추가. 본 빌드 검증: PYZ 아카이브에 openai 1078 entries / anthropic 786 entries 정상 포함
+- ✅ 회귀 방지 테스트 +8건 (175 → 183 passed): `test_employee_leave_unique` (인덱스/IntegrityError/m011 단위) / `test_ai_action_leave T22b` (outcome full-length) / `test_ai_health_public` (public/admin 권한 분리 + sdk_errors 회귀)
 - ⚙️ 인프라: `pytest.ini norecursedirs = tests/temp` 추가 (Windows 파일 핸들 락 회피), spec hiddenimports 에 `action_leave`/`date_resolver` 명시
 
 ### v1.3.2 (2026-04-30) · 직원 관리 강화
