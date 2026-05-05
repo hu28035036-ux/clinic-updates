@@ -123,7 +123,70 @@ C:\Users\<사용자>\AppData\Roaming\도수치료예약\
 
 ## 📜 버전 히스토리
 
-### v1.3.3 (2026-05-01) · 🆕 최신 · AI/RAG v1 후속 보강 + SDK 진단 강화
+### v1.3.5 (2026-05-05) · 🆕 최신 · UI/UX 모더화 + AI 안전 게이트 + 인증 정책
+
+> ⚠ **DB 스키마 변경 ⊥** — 기존 운영 DB 그대로 호환. 업데이트 후 `Ctrl+Shift+R` 강제 새로고침 권장 (UI 정적 자원 캐시 갱신).
+>
+> ℹ️ **AI 도우미 탭 (RAG 매뉴얼 Q&A) UI 제거** — 백엔드 (manual_qa / RAG / m012/m013 / knowledge/) 보존. 추후 재활성 필요 시 사용자에게 별도 요청.
+
+#### 🎨 UI/UX 모더화 (Phase A~M, CompteExpress CRM 톤)
+- 디자인 토큰 13 + 신규 2 (`--accent-soft` / `--disabled-bg`)
+- Pretendard fallback + typography scale + 그림자/라운드/스페이싱 토큰
+- 헤더/탭 카드형 + 메인 max-width 1480px + 사이드바 그리드
+- 가독성 보강 — status text 토큰 4종 (`--success-text` / `--warning-text` / `--danger-text` / `--info-text`)
+- 헤더 흰글씨 `!important` 충돌 fix (환자관리/직원관리/개별문자/일괄안내 헤더)
+- 모든 hardcoded 흐림 색상 (#9CA3AF / #6B7280) → 토큰 또는 #4B5563
+
+#### 🛡️ AI 안전 게이트 강화
+- `approve` endpoint stored-state 게이트 — `executed/rejected/failed` 상태 재 approve → 409 차단 (중복 등록 / 거절 우회 방지)
+- `create_leave` Gate 1 — `needs_approval` 만 허용
+- AI_SAFETY_POLICY § 1.1.3~1.1.7 정합
+
+#### 🤖 AI 인증 정책 변경
+- 일반 사용자도 AI 예약/휴무 도우미 사용 가능 (`anonymous`)
+- `logs` / `harness` 만 관리자 엄격
+- audit log (`ai_command_logs`) 에 actor 식별 보존
+
+#### 🍱 예약표 엑셀 점심시간 반영
+- `cfg.lunch_enabled / lunch_start / lunch_end` 자동 반영
+- 점심 슬롯 = 회색 #E5E7EB + "점심시간 HH:MM~HH:MM" 라벨 (보고서 가독성 우선)
+- 세로 병합 충돌 방지 — 일반→점심 걸치는 60분 예약 span 자르기
+- HH:MM 분/시 범위 (0-59 / 0-23) 명시 검증 — 형식 오류 graceful
+
+#### 🔔 사용자 흐름 개선
+- 비밀번호 변경 권장 알림: 탭 변경 시마다 ❌ → 관리자 로그인 시점 1회만
+- dev 통합 — `venv\Scripts\python.exe run.py` 한 줄로 자동 더미 시드 (sys.frozen 자동 감지)
+
+#### 🤝 Codex 외부 검증 워크플로우
+- `codex.cmd exec --sandbox read-only --ephemeral` 표준
+- REQUEST 11 + RESULT 9 항목 형식
+- 본 사이클에서 6회 적용 (HIGH 2 + MEDIUM 4 모두 반영)
+
+#### 🧹 프로젝트 정리
+- 580 MB 회수 (broken venv / build / dist / 과거 버전 / .claude worktrees / Drive sync stuck)
+
+#### 📊 회귀 / 안정성
+- pytest 2156 passed (이전 1826 → +330 신규)
+- ruff All checks passed
+- 4점 버전 정합 (config.py / VERSION.txt / versions/INDEX.txt / README.md / CHANGELOG.txt = v1.3.5)
+
+#### 📦 SHA256
+`dddfa6889c837f7e923708ce65e80745c72220732de011ccb15207c035ef8d06`
+
+---
+
+### v1.3.4 (2026-05-05) · AI 명령 도우미 (Phase 1~12 + UI 통합)
+- ✨ AI 예약 도우미 (예약관리 화면 *내부* 카드, 정규식 기반 — 외부 LLM 키 없이 동작)
+- ✨ AI 휴무 도우미 (휴무일 관리 서브탭 *내부* 카드)
+- 🛡️ Gate 1 (사용자 승인) + Gate 2 (승인 직전 재검증) 강제
+- 🛡️ AI 안전 정책 (`app/ai/ai_safety.py`) — Privacy 12 키 차단 / Hallucination 검사
+- ✨ SSOT § 11 commands API 7 endpoint + AI 하네스 router
+- 🤖 CI 통합 (`.github/workflows/ai-harness-ci.yml`)
+- 📊 회귀 2142 passed
+
+---
+
+### v1.3.3 (2026-05-01) · AI/RAG v1 후속 보강 + SDK 진단 강화
 
 > ⚠ **업데이트 적용 전 운영 DB 백업 권장**
 > m011 마이그레이션은 동일 직원·동일 날짜에 **중복으로 등록된 휴무가 있을 경우** 가장 최근 1건만 보존하고 나머지를 자동 정리합니다. 정상 운영 환경에는 중복이 없으므로 영향이 없지만, 안전을 위해 업데이트 전 `%APPDATA%\도수치료예약\clinic.db` 를 별도 위치로 1부 복사해 두는 것을 권장합니다. (자동 백업은 매일 1회 `backups/` 에 보관됨)

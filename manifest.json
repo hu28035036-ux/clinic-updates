@@ -1,7 +1,7 @@
 {
-  "version": "1.3.3",
-  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.3/dosu_clinic_v1.3.3_20260501.zip",
-  "sha256": "00e2776f9a080e1dc94d392f711a33a484dbad1f1dc7149051d4f5dccbe04b89",
-  "notes": "🛡️ AI/RAG v1 후속 보강 — 정합성 + 권한 분리 + SDK 진단 강화.\n• 직원 휴무 중복 차단 (m011) — employee_leaves(employee_id, leave_date) UNIQUE 제약 추가, 기존 중복은 최신 1건만 보존하고 자동 정리 (삭제 대상은 stderr 로깅)\n⚠ 업데이트 적용 전 %APPDATA%\\도수치료예약\\clinic.db 수동 백업 권장 (정상 환경엔 중복 없으므로 영향 없음)\n• AiUsageLog.outcome String(20) → String(50) — overwrite_not_acknowledged 등 긴 코드도 truncate 없이 저장\n• /api/ai/health/public 신설 (인증 불필요, 4 필드) — 일반 사용자가 SMS 탭에서 AI 상태 자체 조회. admin 전용 /api/ai/health 그대로 유지\n• 🆕 AI SDK import 진단 메시지 노출 — admin /health 에 sdk_errors 필드 추가 (실패 사유 inline). 이전엔 except Exception 으로 사유 전체를 삼켰음\n• 🆕 PyInstaller 번들 누락 방지 — spec 의 try/except 제거 + collect_data_files. 이전 v1.3.3 빌드의 openai/anthropic 누락 문제 해결\n• 회귀 방지 테스트 +8건 (175 → 183 passed)\n• pytest.ini norecursedirs + spec hiddenimports 보강\nDB 데이터 영향: 정상 환경에서는 변경 없음.",
+  "version": "1.3.5",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.5/dosu_clinic_v1.3.5_20260505.zip",
+  "sha256": "dddfa6889c837f7e923708ce65e80745c72220732de011ccb15207c035ef8d06",
+  "notes": "🎨 v1.3.5 — UI/UX 모더화 (Phase A~M, CompteExpress CRM 톤) + AI 안전 게이트 + 인증 정책 변경\n• 디자인 토큰 13 + 신규 2 (--accent-soft / --disabled-bg)\n• Pretendard 폰트 + typography scale + 그림자/라운드/스페이싱 시스템\n• 헤더/탭 카드형 + 메인 max-width 1480px + 사이드바 그리드\n• 가독성 보강 — status text 토큰 4종 + 헤더 흰글씨 충돌 fix\n🛡️ AI 안전 게이트 — approve endpoint stored-state (executed/rejected/failed → 409) + create_leave Gate 1\n🤖 AI 인증 — 일반 사용자도 AI 예약/휴무 도우미 사용 가능 (anonymous), logs/harness 만 관리자 엄격\n🗑️ AI 도우미 탭 (RAG Q&A) UI 제거 — 백엔드 보존\n🍱 예약표 엑셀 점심시간 반영 (cfg.lunch_enabled/start/end 자동) + HH:MM 분/시 범위 검증\n🔔 비밀번호 변경 알림 — 탭마다 ❌ → 로그인 시점 1회만\n💻 dev 통합 — venv\\Scripts\\python.exe run.py 한 줄로 자동 더미 시드\n🧹 580 MB 회수 (broken venv / build / dist / 과거 버전 / .claude worktrees / Drive sync stuck)\n📊 회귀 — pytest 2156 passed (이전 1826 → +330) / ruff clean / Codex 6회 검증\n⚠ DB 스키마 변경 ⊥ — 기존 운영 DB 그대로 호환. Ctrl+Shift+R 강제 새로고침 권장.",
   "mandatory": false
 }
