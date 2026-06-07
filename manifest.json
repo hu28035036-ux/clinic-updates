@@ -2,6 +2,6 @@
   "version": "1.3.15",
   "download_url": "https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.15_20260608.zip",
   "sha256": "E23F074BAE4D340DD8B41AB911DD0F6B4D0FB79040A7A823E801FE0658D5E1AB",
-  "notes": "v1.3.15 다중 PC 동기화 안정화 배포\n\n- 서브 PC에서 더 최신 입력이 생긴 뒤에도 메인 PC의 이전 변경을 누락하지 않도록 pull 기준을 보정했습니다.\n- 오래된 원격 삭제 op가 더 최신 로컬 환자 기록을 지우지 않도록 충돌 처리를 보강했습니다.\n- sync push에서 일부 op가 실패해도 정상 op는 커밋되고 실패 op만 따로 보고되도록 수정했습니다.\n- 의사/자원 변경 로그도 peer PC에 적용되도록 동기화 엔티티 매핑에 추가했습니다.\n- 전체 pytest 2186 passed, 1 skipped, 10 xfailed / ruff clean / DB check / JS check / PyInstaller 빌드 / exe --check를 통과했습니다.\n\n업데이트 후 화면이 예전처럼 보이면 Ctrl+Shift+R로 브라우저 캐시를 새로고침하세요. 기존 clinic.db는 AppData에 그대로 유지됩니다.",
+  "notes": "v1.3.15 통합 안정화 배포 (v1.3.5 기준)\n\n[추가]\n- 직원 카테고리, 치료 항목 카테고리 연결, 직원별 가능 치료 항목 관리를 추가했습니다.\n- 정산 grid/report, snapshot 저장, 수정/삭제, XLSX export를 추가했습니다.\n- 일자·직원 카테고리별 매출 기록, 기간 통계, 전기간 비교, 정산 대비 분석을 추가했습니다.\n- 카테고리별 재고 항목/동적 필드/셀 값 자동 저장을 추가했습니다.\n- 초기 설정 직후 치료 항목 목록이 비지 않도록 기본 치료 항목 fallback을 추가했습니다.\n\n[수정/안정화]\n- 최초 설정 로컬 모드 저장, UTF-8 BOM config 로딩, 첫 직원 카테고리 직후 예약 모달 치료 항목 표시를 수정했습니다.\n- 환자/직원/예약/재고 입력 후 탭 이동, 자동 저장, 새로고침 보존 흐름을 확인했습니다.\n- 다중 PC 동기화에서 이전 remote op 누락, 오래된 delete 충돌, push 부분 실패, doctor/resource 매핑 누락, 500건 제한 문제를 보강했습니다.\n\n[삭제/정리]\n- 사용자 기능 삭제는 없습니다. 기존 직원 가능항목 방식은 새 카테고리/치료 항목 매핑으로 확장했으며 호환 필드는 유지됩니다.\n\n전체 pytest 2186 passed, 1 skipped, 10 xfailed / ruff clean / DB check / JS check / PyInstaller 빌드 / exe --check를 통과했습니다. 기존 clinic.db는 AppData에 그대로 유지됩니다.",
   "mandatory": false
 }
