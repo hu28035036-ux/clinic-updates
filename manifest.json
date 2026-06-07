@@ -1,7 +1,7 @@
 {
-  "version": "1.3.15",
-  "download_url": "https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.15_20260608.zip",
-  "sha256": "E23F074BAE4D340DD8B41AB911DD0F6B4D0FB79040A7A823E801FE0658D5E1AB",
-  "notes": "v1.3.15 통합 안정화 배포 (v1.3.5 기준)\n\n[추가]\n- 직원 카테고리, 치료 항목 카테고리 연결, 직원별 가능 치료 항목 관리를 추가했습니다.\n- 정산 grid/report, snapshot 저장, 수정/삭제, XLSX export를 추가했습니다.\n- 일자·직원 카테고리별 매출 기록, 기간 통계, 전기간 비교, 정산 대비 분석을 추가했습니다.\n- 카테고리별 재고 항목/동적 필드/셀 값 자동 저장을 추가했습니다.\n- 초기 설정 직후 치료 항목 목록이 비지 않도록 기본 치료 항목 fallback을 추가했습니다.\n\n[수정/안정화]\n- 최초 설정 로컬 모드 저장, UTF-8 BOM config 로딩, 첫 직원 카테고리 직후 예약 모달 치료 항목 표시를 수정했습니다.\n- 환자/직원/예약/재고 입력 후 탭 이동, 자동 저장, 새로고침 보존 흐름을 확인했습니다.\n- 다중 PC 동기화에서 이전 remote op 누락, 오래된 delete 충돌, push 부분 실패, doctor/resource 매핑 누락, 500건 제한 문제를 보강했습니다.\n\n[삭제/정리]\n- 사용자 기능 삭제는 없습니다. 기존 직원 가능항목 방식은 새 카테고리/치료 항목 매핑으로 확장했으며 호환 필드는 유지됩니다.\n\n전체 pytest 2186 passed, 1 skipped, 10 xfailed / ruff clean / DB check / JS check / PyInstaller 빌드 / exe --check를 통과했습니다. 기존 clinic.db는 AppData에 그대로 유지됩니다.",
+  "version": "1.3.16",
+  "download_url": "https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.16_20260608.zip",
+  "sha256": "7E538054300BB2BC9AE020CC60E27AC5E2D9AFA11F4B6AF1618AF1D1800E3DB7",
+  "notes": "v1.3.16 자동업데이트 완료 안내 안정화\n\n[수정/안정화]\n- 매니페스트 자동업데이트 후 새 버전 첫 실행 시 업데이트 완료 안내가 1회만 표시되도록 보강했습니다.\n- update_last_seen_version 설정을 실제 중복 안내 방지 기준으로 사용합니다.\n- 첫 설치 또는 기존 빈 값은 완료 안내를 띄우지 않고 현재 버전으로 조용히 기록해 신규 설치 오탐을 막았습니다.\n- 업데이트 설치 확인 문구와 진행 화면을 화면 멈춤 표현 대신 업데이트 안내 화면/자동 새로고침 흐름으로 정리했습니다.\n- 30초/60초/6분 진단 안내와 업데이터 로그 확인은 유지해 실제 멈춤 상황을 확인할 수 있게 했습니다.\n\n[검증]\n- 자동업데이트 완료 안내 1회 노출 회귀 테스트를 추가했습니다.\n- 전체 pytest 2189 passed, 1 skipped, 10 xfailed / ruff clean / run.py --check / JS check / PyInstaller 빌드 / exe --check를 통과했습니다.\n- 기존 clinic.db는 AppData에 그대로 유지됩니다.",
   "mandatory": false
 }

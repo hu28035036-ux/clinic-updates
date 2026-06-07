@@ -5,11 +5,30 @@
 
 ## 최신 배포
 
-- 버전: `v1.3.15`
+- 버전: `v1.3.16`
 - 배포일: `2026-06-08`
-- ZIP: [`dosu_clinic_v1.3.15_20260608.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.15_20260608.zip)
-- SHA256: `E23F074BAE4D340DD8B41AB911DD0F6B4D0FB79040A7A823E801FE0658D5E1AB`
+- ZIP: [`dosu_clinic_v1.3.16_20260608.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.16_20260608.zip)
+- SHA256: `7E538054300BB2BC9AE020CC60E27AC5E2D9AFA11F4B6AF1618AF1D1800E3DB7`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+
+## v1.3.16 변경 사항
+
+### 수정/안정화
+
+- 매니페스트 자동업데이트 후 새 버전 첫 실행 시 업데이트 완료 안내가 1회만 표시되도록 보강
+- `update_last_seen_version` 설정을 실제 중복 안내 방지 기준으로 사용
+- 첫 설치 또는 기존 빈 값은 완료 안내를 띄우지 않고 현재 버전으로 조용히 기록해 신규 설치 오탐 방지
+- 업데이트 설치 확인 문구와 진행 화면을 화면 멈춤 표현 대신 업데이트 안내 화면/자동 새로고침 흐름으로 정리
+- 30초/60초/6분 진단 안내와 업데이터 로그 확인 흐름은 유지해 실제 멈춤 상황을 확인 가능
+
+### 검증 결과
+
+- `venv\Scripts\python.exe -m pytest -p no:cacheprovider`: `2189 passed, 1 skipped, 10 xfailed`
+- `venv\Scripts\python.exe -m ruff check .`: 통과
+- `venv\Scripts\python.exe run.py --check`: 통과
+- `node --check app\static\js\ai_helper.js`: 통과
+- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
+- 배포 exe `--check`: 통과
 
 ## v1.3.15 변경 사항 (v1.3.5 기준)
 
