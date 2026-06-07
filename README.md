@@ -5,25 +5,25 @@
 
 ## 최신 배포
 
-- 버전: `v1.3.14`
+- 버전: `v1.3.15`
 - 배포일: `2026-06-08`
-- ZIP: [`dosu_clinic_v1.3.14_20260608.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.14_20260608.zip)
-- SHA256: `016A5B4E74D1686CE3C770FE5638AD8AF1BCD7E04D980DC227D893F0B634164C`
+- ZIP: [`dosu_clinic_v1.3.15_20260608.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.15_20260608.zip)
+- SHA256: `E23F074BAE4D340DD8B41AB911DD0F6B4D0FB79040A7A823E801FE0658D5E1AB`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
 
-## v1.3.14 변경 사항
+## v1.3.15 변경 사항
 
-- 최초 설정 화면에서 로컬 첫 모드 저장이 관리자 로그인 없이 정상 완료되도록 수정
-- `config.json`에 UTF-8 BOM이 포함되어도 설정 로딩/관리자 로그인 실패가 나지 않도록 보강
-- 첫 직원 카테고리 생성 직후 예약 모달 치료 항목이 비지 않도록 기본 치료 항목 fallback 추가
-- 환자/직원/예약/재고 입력 후 탭 이동, 자동 저장, 새로고침 보존 흐름 확인
-- GitHub README와 버전 문서 갱신
+- 서브 PC에서 더 최신 입력이 생긴 뒤에도 메인 PC의 이전 변경을 누락하지 않도록 pull 기준 보정
+- 오래된 원격 삭제 op가 더 최신 로컬 환자 기록을 지우지 않도록 충돌 처리 보강
+- sync push 일부 실패 시 정상 op는 커밋되고 실패 op만 따로 보고되도록 수정
+- 의사/자원 변경 로그도 peer PC에 적용되도록 동기화 엔티티 매핑 추가
+- GitHub README와 배포 매니페스트 갱신
 
 ## 검증 결과
 
 2026-06-08 기준:
 
-- `venv\Scripts\python.exe -m pytest`: `2182 passed, 1 skipped, 10 xfailed`
+- `venv\Scripts\python.exe -m pytest -p no:cacheprovider`: `2186 passed, 1 skipped, 10 xfailed`
 - `venv\Scripts\python.exe -m ruff check .`: 통과
 - `venv\Scripts\python.exe run.py --check`: 통과
 - `node --check app\static\js\ai_helper.js`: 통과
