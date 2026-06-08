@@ -5,11 +5,31 @@
 
 ## 최신 배포
 
-- 버전: `v1.3.16`
+- 버전: `v1.3.17`
 - 배포일: `2026-06-08`
-- ZIP: [`dosu_clinic_v1.3.16_20260608.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.16_20260608.zip)
-- SHA256: `7E538054300BB2BC9AE020CC60E27AC5E2D9AFA11F4B6AF1618AF1D1800E3DB7`
+- ZIP: [`dosu_clinic_v1.3.17_20260608.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.17_20260608.zip)
+- SHA256: `02A38BA937F3CFC9AA9137E04ABA424848E9448AA46E63E762555A7C9093F89E`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+
+## v1.3.17 변경 사항
+
+### 수정/안정화
+
+- 환자 관리 검색 기본 범위를 `전체`로 맞춰 예약 탭 빠른 검색과 환자 탭 검색 결과 기준을 통일
+- 환자 저장/삭제 후 로컬 환자 캐시, 최근 검색, 빠른 검색 상태, 환자 수 배지를 즉시 갱신
+- 삭제 직후 같은 검색어도 서버에서 다시 조회하도록 환자 검색 요청 캐시 무효화 보강
+- 예약 보드의 이름 표시를 중앙 정렬
+- 예약 상세 모달 버튼을 오른쪽 정렬, 동일 높이, 작은 크기로 통일
+
+### 검증 결과
+
+- `venv\Scripts\python.exe -m pytest tests\test_19_7_patients_notes.py::test_patients_search_endpoint_still_works tests\test_19_7_patients_notes.py::test_patients_endpoint_still_works`: `2 passed`
+- `venv\Scripts\python.exe run.py --check`: 통과
+- `node --check app\static\js\ai_helper.js`: 통과
+- `node --check app\static\js\ai_leave_helper.js`: 통과
+- 브라우저 확인: 콘솔 오류 없음, `app.css?v=1.3.17`, 환자 검색 기본값 `전체`, 예약 보드 중앙 정렬 확인
+- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
+- 배포 exe `--check`: 통과
 
 ## v1.3.16 변경 사항
 
