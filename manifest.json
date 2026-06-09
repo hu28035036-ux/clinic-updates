@@ -1,7 +1,7 @@
 {
-  "version": "1.3.17",
-  "download_url": "https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.17_20260608.zip",
-  "sha256": "02A38BA937F3CFC9AA9137E04ABA424848E9448AA46E63E762555A7C9093F89E",
-  "notes": "v1.3.17 환자 검색/삭제 반영 및 예약 상세 UI 정리\n\n[수정/안정화]\n- 환자 관리 검색 기본 범위를 전체로 맞춰 예약 탭 빠른 검색과 환자 탭 검색 결과 기준을 통일했습니다.\n- 환자 저장/삭제 후 로컬 환자 캐시, 최근 검색, 빠른 검색 상태, 환자 수 배지를 즉시 갱신하도록 보강했습니다.\n- 삭제 직후 같은 검색어도 서버에서 다시 조회하도록 캐시 무효화 파라미터를 추가했습니다.\n- 예약 보드의 이름 표시를 중앙 정렬하고, 예약 상세 모달 버튼을 오른쪽 정렬/동일 높이/작은 크기로 통일했습니다.\n\n[검증]\n- 환자 API 회귀 테스트 2건, run.py --check, JS 문법 체크, 브라우저 콘솔 확인을 통과했습니다.\n- PyInstaller 빌드와 배포 exe --check를 통과했습니다.\n- 기존 clinic.db는 AppData에 그대로 유지됩니다.",
+  "version": "1.3.19",
+  "download_url": "https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.19_20260610.zip",
+  "sha256": "EDEB798712F72877778FA403D09B452289D109D6DCA03AB4F55BF2E56A6F5F18",
+  "notes": "v1.3.19 매출 기록/일일 현금 기입장/일일보고 연동\n\n[추가/수정]\n- 매출 기록 입력 항목을 현금, 카드, 계좌, 미수납, 기타, 메모로 정리하고 음수 금액 입력을 허용했습니다.\n- 일일 현금 기입장을 매출 관리 하위탭으로 분리하고 권종별 수량 입력 시 금액과 총합이 자동 계산되도록 했습니다.\n- 일일보고 업무일지 반영 영역에 매출 기록과 정산 집계를 연결했습니다.\n- 신규 환자 등록 직후 새 예약창 환자 검색 캐시 갱신, 미니캘린더 선택 표시, 좁은 화면 예약표 표시를 보강했습니다.\n- revenue_records.unpaid_amount 마이그레이션을 포함했습니다.\n\n[검증]\n- 전체 회귀 테스트 2194 passed, 1 skipped, 10 xfailed를 통과했습니다.\n- ruff check, run.py --check, JS 문법 체크, PyInstaller 빌드, 배포 exe --check를 통과했습니다.\n- 기존 clinic.db는 AppData에 그대로 유지됩니다.",
   "mandatory": false
 }

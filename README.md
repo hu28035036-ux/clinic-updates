@@ -5,11 +5,32 @@
 
 ## 최신 배포
 
-- 버전: `v1.3.17`
-- 배포일: `2026-06-08`
-- ZIP: [`dosu_clinic_v1.3.17_20260608.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.17_20260608.zip)
-- SHA256: `02A38BA937F3CFC9AA9137E04ABA424848E9448AA46E63E762555A7C9093F89E`
+- 버전: `v1.3.19`
+- 배포일: `2026-06-10`
+- ZIP: [`dosu_clinic_v1.3.19_20260610.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.19_20260610.zip)
+- SHA256: `EDEB798712F72877778FA403D09B452289D109D6DCA03AB4F55BF2E56A6F5F18`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+
+## v1.3.19 변경 사항
+
+### 추가/수정
+
+- 매출 기록 입력 항목을 `현금`, `카드`, `계좌`, `미수납`, `기타`, `메모`로 정리
+- 현금/카드/계좌/미수납/기타 금액의 마이너스 입력 지원
+- 일일 현금 기입장을 매출 관리 하위탭으로 분리하고 권종별 수량 기반 자동 합계 계산
+- 일일보고 업무일지 반영 영역에 매출 기록과 정산 집계 연결
+- 신규 환자 등록 후 새 예약창 환자 검색 캐시 갱신 보강
+- 미니캘린더 선택일 표시와 좁은 브라우저 폭 예약표 표시 보강
+- `revenue_records.unpaid_amount` 컬럼 추가 마이그레이션 포함
+
+### 검증 결과
+
+- `venv\Scripts\python.exe -m pytest`: `2194 passed, 1 skipped, 10 xfailed`
+- `venv\Scripts\python.exe -m ruff check .`: 통과
+- `venv\Scripts\python.exe run.py --check`: 통과
+- `node --check app\static\js\ai_helper.js`: 통과
+- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
+- 배포 exe `--check`: 통과
 
 ## v1.3.17 변경 사항
 
