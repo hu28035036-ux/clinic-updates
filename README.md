@@ -5,11 +5,47 @@
 
 ## 최신 배포
 
-- 버전: `v1.3.22`
-- 배포일: `2026-06-10`
-- ZIP: [`dosu_clinic_v1.3.22_20260610.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.22_20260610.zip)
-- SHA256: `46D0344A04DFF4E2770B6E7D2B6B180DDF89B4FFBF604FF3AF368A118906AA0F`
+- 버전: `v1.3.23`
+- 배포일: `2026-06-11`
+- ZIP: [`dosu_clinic_v1.3.23_20260611.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.23/dosu_clinic_v1.3.23_20260611.zip)
+- SHA256: `560237FD20F68AED7143A3726F4D83AE9A268982B7B72D6AE4616F0BE3496913`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+
+## v1.3.23 변경 사항
+
+### 버그 수정 (중요)
+
+- "가장 최근 백업으로 복원"이 옛 업데이트 직전 스냅샷을 최근 백업으로 오인할 수 있던 문제 수정
+- 백업 목록과 최신 백업 복원 기준을 파일명 문자열 정렬에서 파일 수정시각 기준으로 변경
+- 백업 보관 개수 정리가 일반 자동백업만 지우고 업데이트/복원 직전 스냅샷을 계속 쌓던 문제 수정
+- 일반 백업과 스냅샷을 분리해 각각 보관 개수를 적용
+- 감사 로그 5년 보존 정책을 하루 1회 자동 실행해 무한 누적 방지
+
+### 장기 운영 안정성 보강
+
+- SQLite WAL 모드와 `busy_timeout` 적용으로 백업/동기화/예약 저장 동시 실행 안정화
+- 자동/다운로드 백업을 SQLite 공식 backup API로 전환해 손상 백업본 방지
+- 복원 시 구 WAL 잔존 파일 정리와 백그라운드 워커 사전 정지
+- `config.json` 원자적 저장과 손상 시 `.broken_*` 보존 후 자동 재생성
+- 동기화 변경 기록(SyncOp) 180일 보존 자동 정리
+- 동기화 push 증분 전송과 구버전 폴백 지원
+- 모르는 entity 수신 시에도 동기화 커서를 전진시켜 영구 재전송 방지
+
+### 검증 결과
+
+- 신규 회귀 테스트: 백업 정렬/보관정리/일일 유지보수 7건, 동기화 13건
+- `venv\Scripts\python.exe -m pytest tests`: `2215 passed, 1 skipped, 10 xfailed`
+- `venv\Scripts\python.exe -m ruff check app tests`: 통과
+- `venv\Scripts\python.exe scripts\check_db_path.py`: 통과
+- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
+- 배포 exe `--check`: 통과
+- 기존 `clinic.db`는 AppData에 그대로 유지
+
+### 배포 방식
+
+- 이번 버전부터 ZIP은 GitHub Release 자산으로만 배포합니다.
+- `clinic-updates` 리포에는 `manifest.json`과 릴리스 노트만 커밋합니다.
+- 자동 업데이트는 기존과 동일하게 `manifest.json`을 읽어 GitHub Release ZIP을 다운로드합니다.
 
 ## v1.3.22 변경 사항
 
@@ -143,6 +179,18 @@ https://hu28035036-ux.github.io/clinic-updates/manifest.json
 ```
 
 이후 관리자 탭의 업데이트 확인/다운로드/설치 흐름을 사용하면 됩니다.
+
+## 프로그램 업데이트 매니페스트 입력란
+
+프로그램의 `업데이트 매니페스트 URL` 또는 `프로그램 업데이트 매니페스트` 입력란에는 아래 값만 그대로 입력합니다.
+
+```text
+https://hu28035036-ux.github.io/clinic-updates/manifest.json
+```
+
+- 앞뒤 공백 없이 `manifest.json`까지 포함해서 입력합니다.
+- ZIP 다운로드 주소나 SHA256 값은 직접 입력하지 않습니다.
+- 저장 후 관리자 탭에서 업데이트 확인을 누르면 프로그램이 매니페스트를 읽어 최신 ZIP과 SHA256을 자동으로 확인합니다.
 
 ## 수동 설치
 
