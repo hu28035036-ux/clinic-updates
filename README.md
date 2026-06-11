@@ -5,11 +5,38 @@
 
 ## 최신 배포
 
-- 버전: `v1.3.24`
-- 배포일: `2026-06-11`
-- ZIP: [`dosu_clinic_v1.3.24_20260611.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.24_20260611.zip)
-- SHA256: `F76CECE518045029D874027806174DE5B5ECC9D06BA23A07D35FE496C95134D3`
+- 버전: `v1.3.25`
+- 배포일: `2026-06-12`
+- ZIP: [`dosu_clinic_v1.3.25_20260612.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.25/dosu_clinic_v1.3.25_20260612.zip) (GitHub Release 자산)
+- SHA256: `536A4BE41CD2135606AFD478975D2023ACA4CBDBE36327016C996D440151BDEE`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+
+## v1.3.25 변경 사항
+
+### 매출 기록 일계표 개편
+
+- 매출 기록 입력 항목을 일계표 기준 16개로 확장 (총진료비/공단부담총액/현금/카드/미수/건생비/입·통원확인서/장애인기금/비급여/식대/기타/할인/FREE/현금지출/계좌입금) + 항목별 메모
+- 수납액 · 총지출 · 현금 자동 계산 표시
+- 일계표 엑셀 불러오기: 해당 날짜 데이터를 입력칸에 채운 뒤 확인 후 저장
+  - 연도 없는 날짜(`6/11` 등)는 올해로 자동 인식 (미래 날짜면 작년 처리)
+  - 이미 저장된 날짜는 덮어쓰기 확인창 표시
+- ⚠ 업데이트 전에 입력한 매출 기록은 총진료비가 없어 과거 통계 수납액이 0원/음수로 보일 수 있음 — 화면의 노란 안내 배너 참고, 해당 날짜 재입력 필요
+
+### 기타 개선
+
+- 환자 엑셀 변환: 전화번호 열 뒤의 휴대폰 열도 010 번호 우선 인식
+- 화면 스크립트를 `main.js`로 분리 + 버전 기반 캐시 무효화 (기능 변화 없음)
+
+### 검증 결과
+
+- 전체 회귀 테스트 `2207 passed` + ruff 통과
+- dev 서버 브라우저 스모크 (탭 전환/예약 보드/매출 기록/안내 배너/콘솔 에러 0)
+- 배포 exe 격리 환경 기동 + 페이지/main.js 서빙 확인
+
+### 배포 방식 (v1.3.25부터)
+
+- **ZIP은 GitHub Release 자산으로만 업로드**하고, 이 레포에는 `manifest.json`과 릴리스 노트만 커밋합니다 (`scripts/publish_release.ps1`).
+- git 히스토리/GitHub Pages 용량 비대를 막기 위한 전환이며, 자동 업데이트는 `manifest.json`의 `download_url`(Release 자산 주소)을 사용합니다.
 
 ## v1.3.24 변경 사항
 
@@ -34,6 +61,23 @@
 
 - ZIP 파일도 `clinic-updates` 레포에 함께 커밋하고 GitHub Pages 주소를 매니페스트 `download_url`로 사용합니다.
 - GitHub Release 자산이 함께 있어도 자동 업데이트는 `manifest.json`에 적힌 Pages ZIP 주소를 우선 사용합니다.
+- 체크아웃과 GitHub Pages 배포 파일이 계속 커지는 것을 막기 위해 ZIP 파일은 최신 10개만 보관하고, 초과분은 자동 삭제합니다. 릴리스 노트와 README 업데이트 내역은 삭제하지 않습니다.
+
+## ZIP 보관 정책
+
+- 보관 대상: `dosu_clinic_v<버전>_<YYYYMMDD>.zip`
+- 보관 기준: 버전/날짜 기준 최신 10개
+- 삭제 대상: 최신 10개를 초과한 과거 ZIP 파일만
+- 유지 대상: `release-v*.md`, `README.md`, `manifest.json` 등 업데이트 내역 문서
+- 자동 실행: `.github/workflows/prune-update-zips.yml`이 ZIP 변경 push 후 `scripts/prune_update_zips.ps1`을 실행합니다.
+- 참고: 일반 삭제 커밋은 이미 Git 히스토리에 들어간 ZIP 용량까지 줄이지는 않습니다. 히스토리 용량까지 줄여야 하면 별도 히스토리 정리 또는 GitHub Release 자산 방식으로 전환해야 합니다.
+
+수동으로 미리 확인하거나 정리할 때는 배포 레포 루트에서 아래 명령을 사용합니다.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\prune_update_zips.ps1 -Keep 10 -WhatIf
+powershell -ExecutionPolicy Bypass -File .\scripts\prune_update_zips.ps1 -Keep 10
+```
 
 ## v1.3.23 변경 사항
 
