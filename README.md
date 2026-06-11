@@ -7,7 +7,7 @@
 
 - 버전: `v1.3.24`
 - 배포일: `2026-06-11`
-- ZIP: [`dosu_clinic_v1.3.24_20260611.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.24/dosu_clinic_v1.3.24_20260611.zip)
+- ZIP: [`dosu_clinic_v1.3.24_20260611.zip`](https://hu28035036-ux.github.io/clinic-updates/dosu_clinic_v1.3.24_20260611.zip)
 - SHA256: `F76CECE518045029D874027806174DE5B5ECC9D06BA23A07D35FE496C95134D3`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
 
@@ -29,6 +29,11 @@
 - `venv\Scripts\python.exe run.py --check`: 통과
 - `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
 - 배포 exe `--check`: 통과
+
+### 배포 방식
+
+- ZIP 파일도 `clinic-updates` 레포에 함께 커밋하고 GitHub Pages 주소를 매니페스트 `download_url`로 사용합니다.
+- GitHub Release 자산이 함께 있어도 자동 업데이트는 `manifest.json`에 적힌 Pages ZIP 주소를 우선 사용합니다.
 
 ## v1.3.23 변경 사항
 
@@ -62,9 +67,8 @@
 
 ### 배포 방식
 
-- 이번 버전부터 ZIP은 GitHub Release 자산으로만 배포합니다.
-- `clinic-updates` 리포에는 `manifest.json`과 릴리스 노트만 커밋합니다.
-- 자동 업데이트는 기존과 동일하게 `manifest.json`을 읽어 GitHub Release ZIP을 다운로드합니다.
+- v1.3.23 배포 당시에는 ZIP을 GitHub Release 자산으로만 배포했습니다.
+- v1.3.24부터는 요청에 맞춰 ZIP 파일도 `clinic-updates` 리포에 함께 커밋하고, 매니페스트는 GitHub Pages ZIP 주소를 사용합니다.
 
 ## v1.3.22 변경 사항
 
