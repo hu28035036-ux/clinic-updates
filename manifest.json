@@ -1,7 +1,7 @@
 {
-    "version":  "1.3.23",
-    "download_url":  "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.23/dosu_clinic_v1.3.23_20260611.zip",
-    "sha256":  "560237fd20f68aed7143a3726f4d83ae9a268982b7b72d6ae4616f0be3496913",
-    "notes":  "v1.3.23 백업 복원 안전성 수정 + 장기 운영 안정성 보강\n\n[버그 수정 - 중요]\n- \"가장 최근 백업으로 복원\"이 옛 업데이트 직전 스냅샷을 최근 백업으로 오인할 수 있던 문제를 수정했습니다. 이제 파일 수정시각 기준으로 진짜 최신 백업을 복원하며, 백업 목록 표시 순서도 바로잡았습니다.\n- 백업 보관 개수 정리가 일반 자동백업만 지우고 스냅샷은 지우지 않아, 스냅샷이 쌓이면 자동백업이 무력화되던 문제를 수정했습니다. 일반 백업과 스냅샷에 보관 개수를 각각 적용합니다.\n- 감사 로그 5년 보존 정책을 하루 1회 자동 실행합니다 (무한 누적 방지).\n\n[안정성 보강]\n- SQLite WAL 모드 + busy_timeout 적용: 백업/동기화/예약 저장이 동시에 일어나도 \"database is locked\" 오류가 나지 않습니다.\n- 자동/다운로드 백업이 SQLite 공식 backup API를 사용합니다 (손상 백업본 방지).\n- config.json 원자적 저장 + 손상 시 자동 복구로 프로그램이 항상 시작됩니다.\n- 동기화 변경 기록(SyncOp) 180일 보존 자동 정리 + 증분 전송으로 전환했습니다.\n\n[검증]\n- 전체 회귀 테스트 2215 passed (백업 정렬/보관정리 신규 테스트 7건 포함).\n- ruff check, DB 경로 안전검사, PyInstaller 빌드, 배포 exe --check 통과.\n- 기존 clinic.db는 AppData에 그대로 유지됩니다.",
+    "version":  "1.3.24",
+    "download_url":  "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.24/dosu_clinic_v1.3.24_20260611.zip",
+    "sha256":  "f76cece518045029d874027806174de5b5ecc9d06ba23a07d35fe496c95134d3",
+    "notes":  "# v1.3.24 자동 업데이트 매니페스트 조회 핫픽스\n\n## 버그 수정\n\n- `URL 저장` 후에도 일부 PC에서 `매니페스트 조회 실패:`가 원인 없이 표시되던 흐름을 보강했습니다.\n- `업데이트 확인` 버튼을 누를 때 현재 입력칸의 매니페스트 URL을 서버로 함께 보내고, 서버 설정에도 저장하도록 변경했습니다.\n- HTTPS 매니페스트와 ZIP 다운로드 조회 시 PyInstaller 배포본에 포함된 `certifi` 인증서 번들을 우선 사용합니다.\n- 매니페스트/다운로드 조회 실패 시 빈 오류 대신 방화벽, 인증서, 네트워크 등 실제 원인이 화면에 표시되도록 했습니다.\n\n## 검증\n\n- 업데이트 매니페스트 URL payload 저장/조회 회귀 테스트 추가 및 통과\n- 업데이트 UI가 입력칸 URL을 `check-update` 요청 body에 포함하는지 검사\n- `tests/test_update_completion_notice.py` + PyInstaller hidden import 회귀 테스트: `241 passed`\n- `venv\\Scripts\\python.exe -m ruff check app tests`: 통과\n- `venv\\Scripts\\python.exe run.py --check`: 통과\n- `venv\\Scripts\\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과\n- 배포 exe `--check`: 통과\n\n## 안내\n\n- 매니페스트 URL은 아래 주소가 맞습니다.\n\n```text\nhttps://hu28035036-ux.github.io/clinic-updates/manifest.json\n```\n\n- v1.3.22에서 자동 조회가 계속 실패하면 ZIP을 수동 다운로드해 프로그램 폴더를 교체하면 됩니다. 데이터 폴더 `%APPDATA%\\도수치료예약`은 교체하지 않습니다.",
     "mandatory":  false
 }
