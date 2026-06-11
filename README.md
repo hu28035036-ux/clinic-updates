@@ -5,11 +5,30 @@
 
 ## 최신 배포
 
-- 버전: `v1.3.23`
+- 버전: `v1.3.24`
 - 배포일: `2026-06-11`
-- ZIP: [`dosu_clinic_v1.3.23_20260611.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.23/dosu_clinic_v1.3.23_20260611.zip)
-- SHA256: `560237FD20F68AED7143A3726F4D83AE9A268982B7B72D6AE4616F0BE3496913`
+- ZIP: [`dosu_clinic_v1.3.24_20260611.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.24/dosu_clinic_v1.3.24_20260611.zip)
+- SHA256: `F76CECE518045029D874027806174DE5B5ECC9D06BA23A07D35FE496C95134D3`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+
+## v1.3.24 변경 사항
+
+### 버그 수정
+
+- `URL 저장` 후에도 일부 PC에서 `매니페스트 조회 실패:`가 원인 없이 표시되던 흐름 보강
+- `업데이트 확인` 버튼이 현재 입력칸의 매니페스트 URL을 서버로 함께 보내고 저장하도록 변경
+- HTTPS 매니페스트와 ZIP 다운로드 조회 시 PyInstaller 배포본에 포함된 `certifi` 인증서 번들을 우선 사용
+- 매니페스트/다운로드 조회 실패 시 빈 오류 대신 방화벽, 인증서, 네트워크 등 실제 원인이 표시되도록 수정
+
+### 검증 결과
+
+- 업데이트 매니페스트 URL payload 저장/조회 회귀 테스트 추가 및 통과
+- 업데이트 UI가 입력칸 URL을 `check-update` 요청 body에 포함하는지 검사
+- `tests/test_update_completion_notice.py` + PyInstaller hidden import 회귀 테스트: `241 passed`
+- `venv\Scripts\python.exe -m ruff check app tests`: 통과
+- `venv\Scripts\python.exe run.py --check`: 통과
+- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
+- 배포 exe `--check`: 통과
 
 ## v1.3.23 변경 사항
 
