@@ -5,11 +5,33 @@
 
 ## 최신 배포
 
-- 버전: `v1.3.25`
+- 버전: `v1.3.26`
 - 배포일: `2026-06-12`
-- ZIP: [`dosu_clinic_v1.3.25_20260612.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.25/dosu_clinic_v1.3.25_20260612.zip) (GitHub Release 자산)
-- SHA256: `536A4BE41CD2135606AFD478975D2023ACA4CBDBE36327016C996D440151BDEE`
+- ZIP: [`dosu_clinic_v1.3.26_20260612.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.26/dosu_clinic_v1.3.26_20260612.zip) (GitHub Release 자산)
+- SHA256: `685DF609030C8408FEC48A91861BFE4ACB60177A6931F9FD93F3701695BFEA61`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+
+## v1.3.26 변경 사항
+
+### 기록 상위탭 추가
+
+- 예약탭 옆에 `기록` 상위탭 추가
+- 기본 하위탭 `메뉴얼` / `C-Arm` 제공
+- 하위탭 이름 연필 버튼으로 수정 가능
+- 차트번호 / 성함 / 직원 입력 기록 저장
+- 하위탭별 과 카테고리 설정 시 해당 과 직원만 선택 목록에 표시
+- 직원별 저장 건수 요약 표시
+
+### 직원 권한 표시 보강
+
+- 직원 관리의 권한/치료항목 표시와 저장 시 직원에게 설정된 과 항목만 표시
+- 정산 권한 판정에서도 다른 과 치료항목이 직원 권한으로 섞이지 않도록 차단
+
+### 데이터 / 검증
+
+- `record_tab_settings`, `record_entries` 테이블 자동 생성
+- 기록 데이터와 하위탭 설정 다중 PC 동기화 포함
+- 기록 API/UI, 직원 과별 권한, 정산 권한, 마이그레이션/PyInstaller discovery 테스트 통과
 
 ## v1.3.25 변경 사항
 
