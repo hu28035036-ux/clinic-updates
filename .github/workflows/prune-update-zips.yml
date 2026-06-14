@@ -1,0 +1,43 @@
+name: Prune update ZIPs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "dosu_clinic_v*.zip"
+      - "scripts/prune_update_zips.ps1"
+      - ".github/workflows/prune-update-zips.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Keep latest 10 update ZIPs
+        shell: pwsh
+        run: ./scripts/prune_update_zips.ps1 -Keep 10
+
+      - name: Commit pruned ZIP deletions
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- '*.zip')" ]; then
+            echo "No old ZIP files to prune."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u -- '*.zip'
+          git commit -m "chore: prune old update ZIP files"
+          git push
+
