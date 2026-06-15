@@ -1,308 +1,117 @@
-# 도수치료예약 배포 저장소
+# 도수치료예약 배포 채널 (clinic-updates) — 제품 요구사항 문서 (PRD)
 
-이 저장소는 `도수치료예약 (Dosu Clinic)` Windows 배포본과 자동 업데이트 매니페스트를 제공합니다.
-소스 코드는 [`hu28035036-ux/clinic-app`](https://github.com/hu28035036-ux/clinic-app)에서 관리합니다.
+> **문서 성격**: 이 README는 `clinic-updates` 저장소의 제품 요구사항 문서(PRD)다.
+> 이 저장소는 프로그램이 아니라, 설치된 앱들이 새 버전을 확인·다운로드하는 **자동 업데이트 배포(전달) 채널**이다.
+> 제품 소스는 [`hu28035036-ux/clinic-app`](https://github.com/hu28035036-ux/clinic-app)에서 관리한다.
+>
+> | 항목 | 값 |
+> |------|-----|
+> | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
+> | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
+> | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
+> | 최신 버전 | **v1.3.30** (2026-06-15) |
 
-## 최신 배포
+---
 
-- 버전: `v1.3.26`
-- 배포일: `2026-06-12`
-- ZIP: [`dosu_clinic_v1.3.26_20260612.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.26/dosu_clinic_v1.3.26_20260612.zip) (GitHub Release 자산)
-- SHA256: `685DF609030C8408FEC48A91861BFE4ACB60177A6931F9FD93F3701695BFEA61`
-- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+## 1. 제품 개요 / 책임 분리
 
-## v1.3.26 변경 사항
+설치된 `도수치료예약` 앱은 관리자 탭에서 매니페스트 URL을 읽어 **현재 버전과 비교 → 새 버전이면 ZIP을 받아 자가 교체**한다.
+이 저장소는 그 "비교 기준판"과 "다운로드 주소"를 제공하는 게시판 역할만 한다.
 
-### 기록 상위탭 추가
+| 저장소 | 역할 | 산출물 |
+|--------|------|--------|
+| `clinic-app` | 제품을 **만드는 곳** | 소스 → exe → ZIP |
+| `clinic-updates` (이 저장소) | 만든 걸 **전달하는 곳** | `manifest.json`, 릴리스 노트 |
 
-- 예약탭 옆에 `기록` 상위탭 추가
-- 기본 하위탭 `메뉴얼` / `C-Arm` 제공
-- 하위탭 이름 연필 버튼으로 수정 가능
-- 차트번호 / 성함 / 직원 입력 기록 저장
-- 하위탭별 과 카테고리 설정 시 해당 과 직원만 선택 목록에 표시
-- 직원별 저장 건수 요약 표시
+## 2. 목표 / 비목표
 
-### 직원 권한 표시 보강
+- **목표**: 인터넷만 되면 각 병원 PC가 클릭 한 번(또는 자동)으로 최신 버전을 무결성 검증과 함께 설치.
+- **목표**: 운영 데이터(`clinic.db`)를 절대 건드리지 않는 안전한 갱신.
+- **비목표**: 소스 코드 보관(→ `clinic-app`), 빌드 수행, 데이터 호스팅.
 
-- 직원 관리의 권한/치료항목 표시와 저장 시 직원에게 설정된 과 항목만 표시
-- 정산 권한 판정에서도 다른 과 치료항목이 직원 권한으로 섞이지 않도록 차단
+## 3. 구성 요소
 
-### 데이터 / 검증
+- **`manifest.json`** — 최신 버전·다운로드 URL·sha256·안내문. GitHub Pages로 서빙.
+- **`release-v*.md`** — 버전별 상세 릴리스 노트(텍스트, 영구 보관).
+- **`manifest-notes-v*.txt`** — 업데이트 확인 대화상자에 표시되는 짧은 평문.
+- **GitHub Release 자산** — 실제 배포 ZIP(`dosu_clinic_v<버전>_<YYYYMMDD>.zip`).
+- **`scripts/`, `.github/workflows/`** — 배포 스크립트 및 (구) ZIP 정리 워크플로.
 
-- `record_tab_settings`, `record_entries` 테이블 자동 생성
-- 기록 데이터와 하위탭 설정 다중 PC 동기화 포함
-- 기록 API/UI, 직원 과별 권한, 정산 권한, 마이그레이션/PyInstaller discovery 테스트 통과
+## 4. 업데이트 흐름 (사용자 시나리오)
 
-## v1.3.25 변경 사항
-
-### 매출 기록 일계표 개편
-
-- 매출 기록 입력 항목을 일계표 기준 16개로 확장 (총진료비/공단부담총액/현금/카드/미수/건생비/입·통원확인서/장애인기금/비급여/식대/기타/할인/FREE/현금지출/계좌입금) + 항목별 메모
-- 수납액 · 총지출 · 현금 자동 계산 표시
-- 일계표 엑셀 불러오기: 해당 날짜 데이터를 입력칸에 채운 뒤 확인 후 저장
-  - 연도 없는 날짜(`6/11` 등)는 올해로 자동 인식 (미래 날짜면 작년 처리)
-  - 이미 저장된 날짜는 덮어쓰기 확인창 표시
-- ⚠ 업데이트 전에 입력한 매출 기록은 총진료비가 없어 과거 통계 수납액이 0원/음수로 보일 수 있음 — 화면의 노란 안내 배너 참고, 해당 날짜 재입력 필요
-
-### 기타 개선
-
-- 환자 엑셀 변환: 전화번호 열 뒤의 휴대폰 열도 010 번호 우선 인식
-- 화면 스크립트를 `main.js`로 분리 + 버전 기반 캐시 무효화 (기능 변화 없음)
-
-### 검증 결과
-
-- 전체 회귀 테스트 `2207 passed` + ruff 통과
-- dev 서버 브라우저 스모크 (탭 전환/예약 보드/매출 기록/안내 배너/콘솔 에러 0)
-- 배포 exe 격리 환경 기동 + 페이지/main.js 서빙 확인
-
-### 배포 방식 (v1.3.25부터)
-
-- **ZIP은 GitHub Release 자산으로만 업로드**하고, 이 레포에는 `manifest.json`과 릴리스 노트만 커밋합니다 (`scripts/publish_release.ps1`).
-- git 히스토리/GitHub Pages 용량 비대를 막기 위한 전환이며, 자동 업데이트는 `manifest.json`의 `download_url`(Release 자산 주소)을 사용합니다.
-
-## v1.3.24 변경 사항
-
-### 버그 수정
-
-- `URL 저장` 후에도 일부 PC에서 `매니페스트 조회 실패:`가 원인 없이 표시되던 흐름 보강
-- `업데이트 확인` 버튼이 현재 입력칸의 매니페스트 URL을 서버로 함께 보내고 저장하도록 변경
-- HTTPS 매니페스트와 ZIP 다운로드 조회 시 PyInstaller 배포본에 포함된 `certifi` 인증서 번들을 우선 사용
-- 매니페스트/다운로드 조회 실패 시 빈 오류 대신 방화벽, 인증서, 네트워크 등 실제 원인이 표시되도록 수정
-
-### 검증 결과
-
-- 업데이트 매니페스트 URL payload 저장/조회 회귀 테스트 추가 및 통과
-- 업데이트 UI가 입력칸 URL을 `check-update` 요청 body에 포함하는지 검사
-- `tests/test_update_completion_notice.py` + PyInstaller hidden import 회귀 테스트: `241 passed`
-- `venv\Scripts\python.exe -m ruff check app tests`: 통과
-- `venv\Scripts\python.exe run.py --check`: 통과
-- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
-- 배포 exe `--check`: 통과
-
-### 배포 방식
-
-- ZIP 파일도 `clinic-updates` 레포에 함께 커밋하고 GitHub Pages 주소를 매니페스트 `download_url`로 사용합니다.
-- GitHub Release 자산이 함께 있어도 자동 업데이트는 `manifest.json`에 적힌 Pages ZIP 주소를 우선 사용합니다.
-- 체크아웃과 GitHub Pages 배포 파일이 계속 커지는 것을 막기 위해 ZIP 파일은 최신 10개만 보관하고, 초과분은 자동 삭제합니다. 릴리스 노트와 README 업데이트 내역은 삭제하지 않습니다.
-
-## ZIP 보관 정책
-
-- 보관 대상: `dosu_clinic_v<버전>_<YYYYMMDD>.zip`
-- 보관 기준: 버전/날짜 기준 최신 10개
-- 삭제 대상: 최신 10개를 초과한 과거 ZIP 파일만
-- 유지 대상: `release-v*.md`, `README.md`, `manifest.json` 등 업데이트 내역 문서
-- 자동 실행: `.github/workflows/prune-update-zips.yml`이 ZIP 변경 push 후 `scripts/prune_update_zips.ps1`을 실행합니다.
-- 참고: 일반 삭제 커밋은 이미 Git 히스토리에 들어간 ZIP 용량까지 줄이지는 않습니다. 히스토리 용량까지 줄여야 하면 별도 히스토리 정리 또는 GitHub Release 자산 방식으로 전환해야 합니다.
-
-수동으로 미리 확인하거나 정리할 때는 배포 레포 루트에서 아래 명령을 사용합니다.
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\prune_update_zips.ps1 -Keep 10 -WhatIf
-powershell -ExecutionPolicy Bypass -File .\scripts\prune_update_zips.ps1 -Keep 10
+```
+앱 관리자 탭 "업데이트 확인"
+   → manifest.json 조회 (GitHub Pages)
+   → manifest.version > 설치 버전 ?
+        → download_url(Release 자산) 다운로드
+        → sha256 검증
+        → updater.bat 로 exe + _internal 교체 (clinic.db 유지)
+        → 재시작 + 자동 새로고침 + 완료 안내 1회
 ```
 
-## v1.3.23 변경 사항
+## 5. `manifest.json` 스펙
 
-### 버그 수정 (중요)
+```json
+{
+  "version": "1.3.30",
+  "download_url": "https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.30/dosu_clinic_v1.3.30_20260615.zip",
+  "sha256": "db37e274d1183bc81b9a2a0e1926faaef1a28ace58f744bc81a5fc71ea9c8bd6",
+  "notes": "업데이트 확인 대화상자에 표시될 평문 안내",
+  "mandatory": false
+}
+```
 
-- "가장 최근 백업으로 복원"이 옛 업데이트 직전 스냅샷을 최근 백업으로 오인할 수 있던 문제 수정
-- 백업 목록과 최신 백업 복원 기준을 파일명 문자열 정렬에서 파일 수정시각 기준으로 변경
-- 백업 보관 개수 정리가 일반 자동백업만 지우고 업데이트/복원 직전 스냅샷을 계속 쌓던 문제 수정
-- 일반 백업과 스냅샷을 분리해 각각 보관 개수를 적용
-- 감사 로그 5년 보존 정책을 하루 1회 자동 실행해 무한 누적 방지
+| 필드 | 의미 |
+|------|------|
+| `version` | 비교 기준 버전 (`MAJOR.MINOR.PATCH`) |
+| `download_url` | Release 자산 ZIP 절대 주소 |
+| `sha256` | ZIP 무결성 검증 해시(소문자) |
+| `notes` | 사용자 안내 평문(`manifest-notes-v*.txt`에서 주입) |
+| `mandatory` | 강제 업데이트 여부(현재 false) |
 
-### 장기 운영 안정성 보강
+- BOM 없는 UTF-8로 저장. 파일은 GitHub Pages 반영까지 보통 1~2분 소요.
 
-- SQLite WAL 모드와 `busy_timeout` 적용으로 백업/동기화/예약 저장 동시 실행 안정화
-- 자동/다운로드 백업을 SQLite 공식 backup API로 전환해 손상 백업본 방지
-- 복원 시 구 WAL 잔존 파일 정리와 백그라운드 워커 사전 정지
-- `config.json` 원자적 저장과 손상 시 `.broken_*` 보존 후 자동 재생성
-- 동기화 변경 기록(SyncOp) 180일 보존 자동 정리
-- 동기화 push 증분 전송과 구버전 폴백 지원
-- 모르는 entity 수신 시에도 동기화 커서를 전진시켜 영구 재전송 방지
+## 6. 배포 운영 정책
 
-### 검증 결과
+- **표준 배포 스크립트**: `clinic-app/scripts/publish_release.ps1`
+  - GitHub Release 생성 + ZIP 자산 업로드 → `manifest.json` 갱신 → manifest·릴리스 노트만 커밋·푸시.
+  - `gh` CLI가 있으면 사용, 없으면 git 자격증명 기반 REST API 폴백.
+  - `-DryRun`으로 업로드·커밋 없이 요약만 출력 가능.
+- **ZIP은 이 저장소에 커밋하지 않는다** (Release 자산으로만). git 히스토리·GitHub Pages 용량(1GB) 비대를 막기 위함.
+  - 단, v1.3.24~v1.3.25 시기에 커밋되어 히스토리/워킹트리에 남은 구 ZIP 일부가 있으며, 정리(force-push)는 별도 진행 대상.
+- **ZIP 보관 정책(구 방식 잔재)**: `.github/workflows/prune-update-zips.yml` + `scripts/prune_update_zips.ps1`이 최신 10개만 유지. 현재 표준 방식(Release 자산)에서는 신규 ZIP이 저장소에 추가되지 않는다.
 
-- 신규 회귀 테스트: 백업 정렬/보관정리/일일 유지보수 7건, 동기화 13건
-- `venv\Scripts\python.exe -m pytest tests`: `2215 passed, 1 skipped, 10 xfailed`
-- `venv\Scripts\python.exe -m ruff check app tests`: 통과
-- `venv\Scripts\python.exe scripts\check_db_path.py`: 통과
-- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
-- 배포 exe `--check`: 통과
-- 기존 `clinic.db`는 AppData에 그대로 유지
+## 7. 사용자 가이드
 
-### 배포 방식
-
-- v1.3.23 배포 당시에는 ZIP을 GitHub Release 자산으로만 배포했습니다.
-- v1.3.24부터는 요청에 맞춰 ZIP 파일도 `clinic-updates` 리포에 함께 커밋하고, 매니페스트는 GitHub Pages ZIP 주소를 사용합니다.
-
-## v1.3.22 변경 사항
-
-### 추가/수정
-
-- 카카오톡 일별 수입현황 예시 엑셀의 추가 컬럼을 무시하고 필요한 기간별 데이터 열만 자동 추출
-- 날짜/총진료비/공단부담총액/본인부담총액/급여총액/비급여총액을 날짜별로 일일 업무 보고에 반영
-- 날짜 없는 마지막 합계 행은 업로드 건너뜀 경고 없이 자동 제외
-- 매출 기록의 미수납 입력값은 합계/통계/업무일지에서 차감 금액으로 반영
-
-### 검증 결과
-
-- 예시 엑셀 파일 직접 파싱: `2026-06-09`~`2026-06-10` 2일치 반영 확인
-- `venv\Scripts\python.exe -m pytest tests\test_revenue.py`: `9 passed`
-- `venv\Scripts\python.exe -m pytest tests\test_migration_spec_discovery.py tests\test_pyinstaller_hidden_imports.py`: `239 passed`
-- `venv\Scripts\python.exe -m ruff check .`: 통과
-- `venv\Scripts\python.exe run.py --check`: 통과
-- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
-- 배포 exe `--check`: 통과
-
-## v1.3.19 변경 사항
-
-### 추가/수정
-
-- 매출 기록 입력 항목을 `현금`, `카드`, `계좌`, `미수납`, `기타`, `메모`로 정리
-- 현금/카드/계좌/미수납/기타 금액의 마이너스 입력 지원
-- 일일 현금 기입장을 매출 관리 하위탭으로 분리하고 권종별 수량 기반 자동 합계 계산
-- 일일보고 업무일지 반영 영역에 매출 기록과 정산 집계 연결
-- 신규 환자 등록 후 새 예약창 환자 검색 캐시 갱신 보강
-- 미니캘린더 선택일 표시와 좁은 브라우저 폭 예약표 표시 보강
-- `revenue_records.unpaid_amount` 컬럼 추가 마이그레이션 포함
-
-### 검증 결과
-
-- `venv\Scripts\python.exe -m pytest`: `2194 passed, 1 skipped, 10 xfailed`
-- `venv\Scripts\python.exe -m ruff check .`: 통과
-- `venv\Scripts\python.exe run.py --check`: 통과
-- `node --check app\static\js\ai_helper.js`: 통과
-- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
-- 배포 exe `--check`: 통과
-
-## v1.3.17 변경 사항
-
-### 수정/안정화
-
-- 환자 관리 검색 기본 범위를 `전체`로 맞춰 예약 탭 빠른 검색과 환자 탭 검색 결과 기준을 통일
-- 환자 저장/삭제 후 로컬 환자 캐시, 최근 검색, 빠른 검색 상태, 환자 수 배지를 즉시 갱신
-- 삭제 직후 같은 검색어도 서버에서 다시 조회하도록 환자 검색 요청 캐시 무효화 보강
-- 예약 보드의 이름 표시를 중앙 정렬
-- 예약 상세 모달 버튼을 오른쪽 정렬, 동일 높이, 작은 크기로 통일
-
-### 검증 결과
-
-- `venv\Scripts\python.exe -m pytest tests\test_19_7_patients_notes.py::test_patients_search_endpoint_still_works tests\test_19_7_patients_notes.py::test_patients_endpoint_still_works`: `2 passed`
-- `venv\Scripts\python.exe run.py --check`: 통과
-- `node --check app\static\js\ai_helper.js`: 통과
-- `node --check app\static\js\ai_leave_helper.js`: 통과
-- 브라우저 확인: 콘솔 오류 없음, `app.css?v=1.3.17`, 환자 검색 기본값 `전체`, 예약 보드 중앙 정렬 확인
-- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
-- 배포 exe `--check`: 통과
-
-## v1.3.16 변경 사항
-
-### 수정/안정화
-
-- 매니페스트 자동업데이트 후 새 버전 첫 실행 시 업데이트 완료 안내가 1회만 표시되도록 보강
-- `update_last_seen_version` 설정을 실제 중복 안내 방지 기준으로 사용
-- 첫 설치 또는 기존 빈 값은 완료 안내를 띄우지 않고 현재 버전으로 조용히 기록해 신규 설치 오탐 방지
-- 업데이트 설치 확인 문구와 진행 화면을 화면 멈춤 표현 대신 업데이트 안내 화면/자동 새로고침 흐름으로 정리
-- 30초/60초/6분 진단 안내와 업데이터 로그 확인 흐름은 유지해 실제 멈춤 상황을 확인 가능
-
-### 검증 결과
-
-- `venv\Scripts\python.exe -m pytest -p no:cacheprovider`: `2189 passed, 1 skipped, 10 xfailed`
-- `venv\Scripts\python.exe -m ruff check .`: 통과
-- `venv\Scripts\python.exe run.py --check`: 통과
-- `node --check app\static\js\ai_helper.js`: 통과
-- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
-- 배포 exe `--check`: 통과
-
-## v1.3.15 변경 사항 (v1.3.5 기준)
-
-### 추가된 기능
-
-- 직원 카테고리 관리 추가: 치료사/의사 등 운영 분류를 별도 카테고리로 관리
-- 치료 항목 카테고리 연결 추가: 치료 항목을 직원 카테고리와 연결해 예약 배정 기준 강화
-- 직원별 가능 치료 항목 관리 추가: 카테고리 안에서도 직원별 가능한 치료 항목을 선택 가능
-- 정산 기능 추가: 치료 수행 기록 기반 정산 grid/report, snapshot 저장, 수정/삭제, XLSX export
-- 매출 기능 추가: 일자·직원 카테고리별 매출 기록, 기간 통계, 전기간 비교, 정산 대비 분석
-- 재고 기능 추가: 카테고리별 재고 항목/동적 필드/셀 값 자동 저장
-- 기본 치료 항목 fallback 추가: 초기 설정 직후 치료 항목 목록이 비지 않도록 기본값 보강
-- 다중 PC 동기화 회귀 테스트 추가: 메인/서브 DB를 분리한 자동 시뮬레이션으로 동기화 검증
-
-### 수정/안정화
-
-- 최초 설정 화면에서 로컬 첫 모드 저장이 관리자 로그인 없이 정상 완료되도록 수정
-- `config.json`이 UTF-8 BOM으로 저장되어도 설정 로딩/관리자 로그인이 실패하지 않도록 수정
-- 첫 직원 카테고리 생성 직후 예약 모달 치료 항목이 비는 문제 수정
-- 환자/직원/예약/재고 입력 후 탭 이동, 자동 저장, 새로고침 보존 흐름 확인
-- 서브 PC에서 더 최신 입력이 생긴 뒤에도 메인 PC의 이전 변경을 누락하지 않도록 sync pull 기준 보정
-- 오래된 원격 삭제 op가 더 최신 로컬 환자 기록을 지우지 않도록 충돌 처리 보강
-- sync push 일부 실패 시 정상 op는 커밋되고 실패 op만 따로 보고되도록 수정
-- 의사/자원 변경 로그도 peer PC에 적용되도록 동기화 엔티티 매핑 추가
-- 오래 오프라인이었던 PC의 누적 변경이 500건 제한에 걸리지 않도록 local push 범위 보강
-
-### 삭제/정리
-
-- 사용자 기능 삭제 없음
-- 기존 직원 가능항목 boolean 방식은 새 카테고리/치료 항목 매핑으로 확장했으며, 기존 호환 필드는 유지
-- 운영 데이터 저장 위치는 계속 AppData이며, 업데이트 ZIP은 `clinic.db`를 삭제하거나 덮어쓰지 않음
-
-## 검증 결과
-
-2026-06-08 기준:
-
-- `venv\Scripts\python.exe -m pytest -p no:cacheprovider`: `2186 passed, 1 skipped, 10 xfailed`
-- `venv\Scripts\python.exe -m ruff check .`: 통과
-- `venv\Scripts\python.exe run.py --check`: 통과
-- `node --check app\static\js\ai_helper.js`: 통과
-- `venv\Scripts\pyinstaller.exe --noconfirm dosu_clinic.spec`: 통과
-- 배포 exe `--check`: 통과
-
-PyInstaller 경고 파일에는 선택 의존성, 타 플랫폼 모듈, 미사용 DB 드라이버 관련 경고가 포함되어 있으며 빌드는 정상 완료되었습니다.
-
-## 자동 업데이트 사용 방법
-
-프로그램 관리자 탭에서 업데이트 매니페스트 URL을 아래 주소로 설정합니다.
-
+### 자동 업데이트 설정
+앱 관리자 탭의 `업데이트 매니페스트 URL` 입력란에 아래 값만(앞뒤 공백 없이) 입력 후 저장:
 ```text
 https://hu28035036-ux.github.io/clinic-updates/manifest.json
 ```
+ZIP 주소·SHA256은 직접 입력하지 않는다. 저장 후 `업데이트 확인`을 누르면 자동 처리된다.
 
-이후 관리자 탭의 업데이트 확인/다운로드/설치 흐름을 사용하면 됩니다.
+### 수동 설치 (필요 시)
+1. 최신 ZIP 다운로드 → 2. 실행 중인 프로그램 종료 → 3. 기존 설치 폴더에 덮어쓰기 →
+4. `도수치료예약.exe` 실행 → 5. 화면이 예전 같으면 `Ctrl + Shift + R`로 캐시 새로고침.
 
-## 프로그램 업데이트 매니페스트 입력란
-
-프로그램의 `업데이트 매니페스트 URL` 또는 `프로그램 업데이트 매니페스트` 입력란에는 아래 값만 그대로 입력합니다.
-
-```text
-https://hu28035036-ux.github.io/clinic-updates/manifest.json
-```
-
-- 앞뒤 공백 없이 `manifest.json`까지 포함해서 입력합니다.
-- ZIP 다운로드 주소나 SHA256 값은 직접 입력하지 않습니다.
-- 저장 후 관리자 탭에서 업데이트 확인을 누르면 프로그램이 매니페스트를 읽어 최신 ZIP과 SHA256을 자동으로 확인합니다.
-
-## 수동 설치
-
-1. 최신 ZIP을 다운로드합니다.
-2. 기존 프로그램이 실행 중이면 종료합니다.
-3. 기존 설치 폴더에 압축을 덮어씁니다.
-4. `도수치료예약.exe`를 실행합니다.
-5. 화면이 예전처럼 보이면 `Ctrl + Shift + R`로 브라우저 캐시를 새로고침합니다.
-
-## 데이터 안전
-
-운영 데이터는 배포 폴더가 아니라 아래 AppData 경로에 저장됩니다.
-
+### 데이터 안전
+운영 데이터는 배포 폴더가 아니라 아래 경로에 저장되며, 업데이트는 이를 건드리지 않는다.
 ```text
 %APPDATA%\도수치료예약\
-  clinic.db
-  config.json
-  schema_version.txt
-  backups\
+  clinic.db / config.json / schema_version.txt / backups\
 ```
 
-배포 ZIP은 실행 파일과 `_internal` 폴더를 교체합니다. 정상 업데이트 과정에서 `clinic.db`는 삭제하거나 덮어쓰지 않습니다.
+### 기본 관리자 비밀번호
+초기값 `admin1234` — 첫 로그인 후 관리자 탭에서 반드시 변경.
 
-## 기본 관리자 비밀번호
+## 8. 최신 배포 (v1.3.30 · 2026-06-15)
 
-초기 관리자 비밀번호는 `admin1234`입니다. 실제 운영 PC에서는 첫 로그인 후 관리자 탭에서 비밀번호를 변경하세요.
+- ZIP: [`dosu_clinic_v1.3.30_20260615.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.30/dosu_clinic_v1.3.30_20260615.zip) (25.1 MB, GitHub Release 자산)
+- SHA256: `db37e274d1183bc81b9a2a0e1926faaef1a28ace58f744bc81a5fc71ea9c8bd6`
+- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
+- 변경 요약 ([상세](release-v1.3.30.md)):
+  - 미니달력 깨짐 수정 — 내용에 맞춰 높이 자동 확장 + 휴무명 3개 축약("+N").
+  - 금일 예약 환자/취소 목록·예약 상세창에 신규 환자가 `?`로 나오던 문제 수정.
+- 기존 `clinic.db`는 그대로 유지된다.
+
+> 버전별 상세 변경 이력은 각 `release-v*.md` 파일을 참고한다.
