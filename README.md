@@ -9,7 +9,7 @@
 > | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
 > | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
 > | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
-> | 최신 버전 | **v1.3.31** (2026-06-16) |
+> | 최신 버전 | **v1.3.32** (2026-06-16) |
 
 ---
 
@@ -104,15 +104,16 @@ ZIP 주소·SHA256은 직접 입력하지 않는다. 저장 후 `업데이트 �
 ### 기본 관리자 비밀번호
 초기값 `admin1234` — 첫 로그인 후 관리자 탭에서 반드시 변경.
 
-## 8. 최신 배포 (v1.3.31 · 2026-06-16)
+## 8. 최신 배포 (v1.3.32 · 2026-06-16)
 
-- ZIP: [`dosu_clinic_v1.3.31_20260616.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.31/dosu_clinic_v1.3.31_20260616.zip) (25.1 MB, GitHub Release 자산)
-- SHA256: `890cb17706b1a91abefa8ab2134734c168c31edaa8a6f36c0456b2399b346d9a`
+- ZIP: [`dosu_clinic_v1.3.32_20260616.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.32/dosu_clinic_v1.3.32_20260616.zip) (25.1 MB, GitHub Release 자산)
+- SHA256: `f00f1282ea60e05888a7901c237360c26a509249dfbc707d038f0ba2d03f4911`
 - 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
-- 변경 요약 ([상세](release-v1.3.31.md)):
-  - 관리자 비밀번호가 가끔 "틀렸다"고 거부되던 문제 수정 — 설정 파일 동시 저장 손상 →
-    비밀번호가 `admin1234`로 초기화되던 원인 제거(저장 직렬화 + 손상 시 비번 보존).
-- 직전 버전 v1.3.30 ([상세](release-v1.3.30.md)): 미니달력 깨짐 / 금일목록 "?" 표시 수정.
+- 변경 요약 ([상세](release-v1.3.32.md)):
+  - **비밀번호가 맞는데 "비밀번호 오류"로 거부**되던 문제 수정(핵심) — 5회 실패 5분 잠금
+    (전 PC 공용) 동안 올바른 비밀번호도 "비밀번호 오류"로만 떠 오인되던 것을, 실제 사유 +
+    남은 시간 표시로 수정.
+- 직전 v1.3.31 ([상세](release-v1.3.31.md)): 설정 동시저장 손상 → 비번 admin1234 초기화 문제 수정.
 - 기존 `clinic.db`는 그대로 유지된다.
 
 > 버전별 상세 변경 이력은 각 `release-v*.md` 파일을 참고한다.
