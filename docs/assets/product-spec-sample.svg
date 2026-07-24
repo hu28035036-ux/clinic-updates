@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="NanumGothic, sans-serif">
+  <defs>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1f6feb"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="560" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="70" fill="url(#hd)"/>
+  <text x="30" y="34" fill="#ffffff" font-size="24" font-weight="bold">상품 설계서 — 도수치료예약</text>
+  <text x="30" y="57" fill="#e8f0ff" font-size="14">Product Design Specification · v1.3.56 · 2026-07-24</text>
+  <text x="760" y="34" fill="#ffffff" font-size="13">문서번호</text>
+  <text x="760" y="55" fill="#ffffff" font-size="16" font-weight="bold">PDS-056</text>
+
+  <!-- Meta grid -->
+  <g font-size="13" fill="#24292f">
+    <rect x="30" y="90" width="180" height="34" fill="#f6f8fa" stroke="#d0d7de"/>
+    <rect x="210" y="90" width="240" height="34" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="450" y="90" width="150" height="34" fill="#f6f8fa" stroke="#d0d7de"/>
+    <rect x="600" y="90" width="270" height="34" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="42" y="112" font-weight="bold">상품명</text>
+    <text x="222" y="112">도수치료 예약·기록 관리</text>
+    <text x="462" y="112" font-weight="bold">담당부서</text>
+    <text x="612" y="112">임상운영팀</text>
+
+    <rect x="30" y="124" width="180" height="34" fill="#f6f8fa" stroke="#d0d7de"/>
+    <rect x="210" y="124" width="240" height="34" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="450" y="124" width="150" height="34" fill="#f6f8fa" stroke="#d0d7de"/>
+    <rect x="600" y="124" width="270" height="34" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="42" y="146" font-weight="bold">대상 채널</text>
+    <text x="222" y="146">병원 PC (자동 업데이트)</text>
+    <text x="462" y="146" font-weight="bold">배포 상태</text>
+    <text x="612" y="146">빌드/배포 대기 ⏳</text>
+  </g>
+
+  <!-- Section title -->
+  <rect x="30" y="176" width="840" height="28" fill="#eef4ff"/>
+  <text x="42" y="196" font-size="15" font-weight="bold" fill="#1f6feb">1. 핵심 기능 명세</text>
+
+  <!-- Feature table -->
+  <g font-size="12.5" fill="#24292f">
+    <rect x="30" y="212" width="90" height="30" fill="#1f6feb"/>
+    <rect x="120" y="212" width="330" height="30" fill="#1f6feb"/>
+    <rect x="450" y="212" width="200" height="30" fill="#1f6feb"/>
+    <rect x="650" y="212" width="220" height="30" fill="#1f6feb"/>
+    <text x="42" y="232" fill="#fff" font-weight="bold">ID</text>
+    <text x="132" y="232" fill="#fff" font-weight="bold">기능</text>
+    <text x="462" y="232" fill="#fff" font-weight="bold">입력/제약</text>
+    <text x="662" y="232" fill="#fff" font-weight="bold">비고</text>
+
+    <rect x="30" y="242" width="90" height="30" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="120" y="242" width="330" height="30" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="450" y="242" width="200" height="30" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="650" y="242" width="220" height="30" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="42" y="262">F-01</text>
+    <text x="132" y="262">기록 탭 메모 칸</text>
+    <text x="462" y="262">최대 200자, 선택</text>
+    <text x="662" y="262">차트번호/성함 필수</text>
+
+    <rect x="30" y="272" width="90" height="30" fill="#f6f8fa" stroke="#d0d7de"/>
+    <rect x="120" y="272" width="330" height="30" fill="#f6f8fa" stroke="#d0d7de"/>
+    <rect x="450" y="272" width="200" height="30" fill="#f6f8fa" stroke="#d0d7de"/>
+    <rect x="650" y="272" width="220" height="30" fill="#f6f8fa" stroke="#d0d7de"/>
+    <text x="42" y="292">F-02</text>
+    <text x="132" y="292">야간당직 퇴근시간 집계</text>
+    <text x="462" y="292">기준 18:30 초과분</text>
+    <text x="662" y="292">자정 넘김 처리</text>
+
+    <rect x="30" y="302" width="90" height="30" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="120" y="302" width="330" height="30" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="450" y="302" width="200" height="30" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="650" y="302" width="220" height="30" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="42" y="322">F-03</text>
+    <text x="132" y="322">과별 당직 횟수 요약</text>
+    <text x="462" y="322">집계→정산 자동 반영</text>
+    <text x="662" y="322">집계 칸 축소</text>
+  </g>
+
+  <!-- Section 2 -->
+  <rect x="30" y="344" width="840" height="28" fill="#eef4ff"/>
+  <text x="42" y="364" font-size="15" font-weight="bold" fill="#1f6feb">2. 데이터 마이그레이션</text>
+  <g font-size="12.5" fill="#24292f">
+    <text x="42" y="392">· m044 — 기록 메모 컬럼 추가 (기존 clinic.db 전량 보존)</text>
+    <text x="42" y="414">· m045 — 야간당직 end_time 컬럼 추가 (컬럼 추가만)</text>
+    <text x="42" y="436">· 운영 데이터 경로: %APPDATA%\도수치료예약\clinic.db</text>
+  </g>
+
+  <!-- Signature -->
+  <line x1="30" y1="470" x2="870" y2="470" stroke="#d0d7de"/>
+  <g font-size="12.5" fill="#57606a">
+    <text x="42" y="498">작성: 제품기획</text>
+    <text x="322" y="498">검토: 임상운영팀</text>
+    <text x="602" y="498">승인: 운영책임자</text>
+    <text x="42" y="526">이 그림은 문서 설명용 예시 상품 설계서입니다.</text>
+  </g>
+</svg>
