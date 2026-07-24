@@ -9,7 +9,8 @@
 > | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
 > | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
 > | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
-> | 최신 버전 | **v1.3.33** (2026-06-16) |
+> | 현재 배포 중(매니페스트) | **v1.3.55** (2026-07-16) |
+> | 코드 준비 완료(배포 대기) | **v1.3.56** (2026-07-24) — PC 빌드 후 publish 예정 |
 
 ---
 
@@ -104,16 +105,27 @@ ZIP 주소·SHA256은 직접 입력하지 않는다. 저장 후 `업데이트 �
 ### 기본 관리자 비밀번호
 초기값 `admin1234` — 첫 로그인 후 관리자 탭에서 반드시 변경.
 
-## 8. 최신 배포 (v1.3.33 · 2026-06-16)
+## 8. 최신 배포
 
-- ZIP: [`dosu_clinic_v1.3.33_20260616.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.33/dosu_clinic_v1.3.33_20260616.zip) (25.1 MB, GitHub Release 자산)
-- SHA256: `69692ff22e9406ec11cab10ebccf8f705e51e2eb2a8d5e846594a85ac8aa7d1f`
-- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json)
-- 변경 요약 ([상세](release-v1.3.33.md)):
-  - **로그인 잠금 PC별 분리 + 완화** — 잠금이 전 PC 공용이라 한 PC 실수로 다른 PC도
-    잠기던 문제를 PC(주소)별 분리로 해소. 임계 5회/5분 → 10회/1분.
-- 비밀번호 관련 직전 수정: v1.3.32 잠금 안내 표시([상세](release-v1.3.32.md)),
-  v1.3.31 설정 손상 시 비번 보존([상세](release-v1.3.31.md)).
-- 기존 `clinic.db`는 그대로 유지된다.
+### 현재 배포 중 — v1.3.55 · 2026-07-16 (매니페스트 서빙 중)
+
+- ZIP: [`dosu_clinic_v1.3.55_20260716.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.55/dosu_clinic_v1.3.55_20260716.zip) (GitHub Release 자산)
+- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 1.3.55`)
+- 변경 요약 ([상세](release-v1.3.55.md)): 휴무 카운트·과별 보기 + 집계→정산 자동 반영 + 집계 칸 축소.
+
+### 다음 배포 — v1.3.56 · 2026-07-24 (코드 준비 완료, 빌드/배포 대기 ⏳)
+
+- 상태: **`clinic-app` main 에 v1.3.56 코드 병합 완료.** PC에서 빌드 후 `publish_release.ps1` 실행 시 실제 배포(Release 자산 + manifest.json 갱신)가 이뤄진다.
+- ZIP: `dosu_clinic_v1.3.56_20260724.zip` — **빌드 후 생성** (아직 없음).
+- SHA256: **빌드 후 `publish_release.ps1`이 자동 계산·주입** (현재 미정).
+- 릴리스 노트: [release-v1.3.56.md](release-v1.3.56.md) · 매니페스트 평문: [manifest-notes-v1.3.56.txt](manifest-notes-v1.3.56.txt) (미리 커밋됨).
+- 변경 요약:
+  - **기록 탭 "메모" 칸 추가** — 차트번호·성함·직원 옆 선택 입력(최대 200자). 차트번호 또는 성함은 여전히 필수.
+  - **야간당직 퇴근시간·시간 집계** — 직원별 퇴근시각 입력, 기준 퇴근시간(기본 18:30) 초과분을
+    "야간당직 시간"으로 "과별 당직 횟수" 요약에 표시(자정 넘김 처리, 야간당직 전용).
+- DB 마이그레이션 m044(기록 메모) + m045(야간당직 end_time) — 컬럼 추가만, 기존 `clinic.db` 전량 보존.
+
+> 배포 절차(PC): `clinic-app` 에서 `git pull` → `pyinstaller.exe dosu_clinic.spec` 빌드 → `scripts\publish_release.ps1 -Version 1.3.56 -ZipPath ... -NotesPath ..\clinic-updates\release-v1.3.56.md -ManifestNotesPath ..\clinic-updates\manifest-notes-v1.3.56.txt`.
+> 스크립트 실행이 끝나면 manifest.json 이 v1.3.56 으로 바뀌고, 이 섹션의 "다음 배포"를 "현재 배포 중"으로 옮기면 된다.
 
 > 버전별 상세 변경 이력은 각 `release-v*.md` 파일을 참고한다.
