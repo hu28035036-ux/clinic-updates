@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>도수치료예약 상품 설계서</title>
+<style>
+  @page {
+    size: A4;
+    margin: 16mm 16mm 15mm 16mm;
+    @top-right { content: "도수치료예약 · 상품 설계서"; font-size: 8pt; color: #9aa4b0; }
+    @bottom-center { content: counter(page) " / " counter(pages); font-size: 9pt; color: #6b7684; }
+  }
+  @page :first { @top-right { content: ""; } }
+
+  * { box-sizing: border-box; }
+  body {
+    font-family: "NanumGothic", "NanumBarunGothic", sans-serif;
+    color: #222b36; font-size: 9.6pt; line-height: 1.5; margin: 0;
+    orphans: 2; widows: 2;
+  }
+  h1 { font-size: 22pt; margin: 0 0 4px; letter-spacing: -0.5px; }
+  h2 {
+    font-size: 13pt; color: #0d6efd; margin: 16px 0 8px;
+    padding-bottom: 5px; border-bottom: 2px solid #0d6efd;
+    break-after: avoid; page-break-after: avoid;
+  }
+  h3 { font-size: 10.5pt; color: #1f2937; margin: 10px 0 4px; break-after: avoid; page-break-after: avoid; }
+  p { margin: 0 0 6px; }
+  strong { color: #111827; }
+
+  /* 표지 */
+  .cover {
+    background: linear-gradient(120deg, #0d6efd, #2b8cff 55%, #4aa3ff);
+    color: #fff; border-radius: 12px; padding: 26px 30px; margin-bottom: 14px;
+  }
+  .cover .badge { display: inline-block; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.4); border-radius: 20px; padding: 3px 12px; font-size: 8.5pt; margin-bottom: 12px; }
+  .cover .sub { color: #eaf2ff; font-size: 11pt; margin-top: 6px; }
+  .cover .meta { margin-top: 16px; font-size: 9pt; color: #dbeaff; }
+  .cover .meta b { color: #fff; }
+
+  /* 가치 카드 3분할 */
+  .values { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .value { border: 1px solid #dde3ea; border-top: 4px solid #0d6efd; border-radius: 9px; padding: 12px 14px; background: #fff; break-inside: avoid; }
+  .value .ic { display: inline-block; background: #eef5ff; color: #0d6efd; font-weight: bold; font-size: 8.5pt; border-radius: 6px; padding: 3px 9px; letter-spacing: 1px; }
+  .value .vt { font-weight: bold; color: #0d6efd; margin: 7px 0 3px; font-size: 10.5pt; }
+  .value p { font-size: 8.8pt; color: #4b5563; margin: 0; }
+
+  figure { margin: 12px 0 4px; text-align: center; break-inside: avoid; page-break-inside: avoid; }
+  figure img { max-width: 86%; max-height: 88mm; height: auto; border: 1px solid #dde3ea; border-radius: 10px; }
+  figcaption { font-size: 8.4pt; color: #6b7684; margin-top: 5px; }
+
+  .card { border: 1px solid #dde3ea; border-radius: 9px; padding: 11px 15px; margin: 9px 0; background: #fff; break-inside: avoid; page-break-inside: avoid; }
+  .card .t { font-weight: bold; color: #0d6efd; margin-bottom: 4px; }
+  .lead { background: #eef5ff; border-left: 4px solid #0d6efd; padding: 10px 15px; border-radius: 0 8px 8px 0; margin: 10px 0; break-inside: avoid; }
+
+  table { width: 100%; border-collapse: collapse; margin: 9px 0; font-size: 9pt; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; page-break-inside: avoid; }
+  th, td { border: 1px solid #dde3ea; padding: 6px 10px; text-align: left; vertical-align: top; }
+  th { background: #0d6efd; color: #fff; }
+  tbody tr:nth-child(even) { background: #f7f9fc; }
+
+  ul { margin: 4px 0 8px; padding-left: 20px; }
+  li { margin: 3px 0; }
+  .page-break { break-before: page; page-break-before: always; }
+
+  /* 업데이트 흐름 스텝 */
+  .flow { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin: 8px 0; }
+  .step { border: 1px solid #dde3ea; border-radius: 9px; padding: 10px; background: #f7f9fc; text-align: center; font-size: 8.6pt; break-inside: avoid; }
+  .step .n { display: inline-block; width: 22px; height: 22px; line-height: 22px; border-radius: 50%; background: #0d6efd; color: #fff; font-weight: bold; margin-bottom: 5px; }
+  code { font-family: "NanumGothicCoding", monospace; background: #f1f3f6; border: 1px solid #e3e7ec; border-radius: 4px; padding: 1px 5px; font-size: 8.6pt; color: #b3541e; }
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1 : 개요 ===================== -->
+<div class="cover">
+  <div class="badge">상품 설계서 · Product Specification</div>
+  <h1>도수치료예약</h1>
+  <div class="sub">병원용 도수치료 예약·기록·당직 관리 데스크톱 앱</div>
+  <div class="meta">
+    <b>버전</b> v1.3.56 &nbsp;·&nbsp; <b>기준일</b> 2026-07-24 &nbsp;·&nbsp;
+    <b>배포</b> 자동 업데이트(GitHub Pages 매니페스트) &nbsp;·&nbsp; <b>문서번호</b> PDS-056
+  </div>
+</div>
+
+<div class="lead">
+  <strong>도수치료예약</strong>은 병원 PC에 설치되어 <strong>예약·진료 기록·직원 당직</strong>을 한 곳에서 관리하는 앱입니다.
+  인터넷만 연결되면 <strong>클릭 한 번(또는 자동)으로 최신 버전</strong>을 무결성 검증과 함께 설치하며,
+  운영 데이터(<code>clinic.db</code>)는 절대 건드리지 않습니다.
+</div>
+
+<div class="values">
+  <div class="value">
+    <div class="ic">CARE</div>
+    <div class="vt">예약·기록 통합</div>
+    <p>예약, 진료 기록, 메모를 한 화면에서 입력·조회.</p>
+  </div>
+  <div class="value">
+    <div class="ic">SHIFT</div>
+    <div class="vt">당직 시간 집계</div>
+    <p>야간당직 퇴근시각 입력과 초과 근무시간 자동 집계.</p>
+  </div>
+  <div class="value">
+    <div class="ic">SAFE</div>
+    <div class="vt">안전한 자동 업데이트</div>
+    <p>SHA256 검증 후 교체, 기존 데이터 100% 보존.</p>
+  </div>
+</div>
+
+<h2>제품 개요</h2>
+<figure>
+  <img src="assets/product-spec-sample.svg" alt="도수치료예약 상품 설계서 요약">
+  <figcaption>그림 1. 도수치료예약 상품 설계서 요약 — 핵심 기능 명세·데이터 마이그레이션·승인란</figcaption>
+</figure>
+
+<!-- ===================== PAGE 2 : 기능 명세 ===================== -->
+<div class="page-break"></div>
+<h2>1. 핵심 기능 (v1.3.56)</h2>
+<table>
+  <thead>
+    <tr><th style="width:16%">ID</th><th style="width:30%">기능</th><th style="width:30%">입력·제약</th><th>비고</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>F-01</td><td>기록 탭 <strong>메모 칸</strong></td><td>선택 입력, 최대 200자</td><td>차트번호 또는 성함은 필수</td></tr>
+    <tr><td>F-02</td><td>야간당직 <strong>퇴근시각 입력</strong></td><td>직원·날짜별 시각</td><td>여러 명이면 각자 다른 시각</td></tr>
+    <tr><td>F-03</td><td>야간당직 <strong>시간 집계</strong></td><td>기준(기본 18:30) 초과분</td><td>자정 넘김 정상 계산</td></tr>
+    <tr><td>F-04</td><td><strong>과별 당직 횟수</strong> 요약</td><td>직원별 횟수+시간 표시</td><td>집계→정산 자동 반영</td></tr>
+  </tbody>
+</table>
+
+<div class="card">
+  <div class="t">① 기록 탭 “메모” 칸</div>
+  <p>차트번호·성함·직원 옆에 <strong>메모 칸</strong>이 추가됐습니다. 추가 폼·목록 표·수정 창에서 입력·확인할 수 있으며(최대 200자, 선택),
+  <strong>메모만 단독으로는 저장되지 않습니다</strong> — 차트번호 또는 성함은 필수입니다.</p>
+</div>
+
+<div class="card">
+  <div class="t">② 야간당직 퇴근시각·시간 집계</div>
+  <ul>
+    <li>날짜 설정 창에서 당직 직원을 체크하면 <strong>퇴근시각 칸</strong>이 나타납니다(직원별 개별 입력).</li>
+    <li>“야간당직 추가”(1명·여러 날짜) 창에서는 선택한 모든 날짜에 <strong>공통 퇴근시각</strong>을 한 번에 지정.</li>
+    <li>기준 퇴근시간(<strong>관리자 → 시스템 → 운영 시간</strong>, 기본 18:30) 초과분을 <strong>“야간당직 시간”</strong>으로 집계
+      (예: 홍길동 5회 · 12시간 30분). 자정을 넘겨도 바르게 계산됩니다.</li>
+    <li>아침·점심당직에는 시간 집계가 적용되지 않습니다(야간당직 전용).</li>
+  </ul>
+</div>
+
+<h2>2. 자동 업데이트 흐름</h2>
+<p>관리자 탭에서 <strong>업데이트 확인</strong>을 누르면 아래 순서로 자동 처리됩니다.</p>
+<div class="flow">
+  <div class="step"><div class="n">1</div><br>매니페스트 조회<br>(버전 비교)</div>
+  <div class="step"><div class="n">2</div><br>새 버전 ZIP<br>다운로드</div>
+  <div class="step"><div class="n">3</div><br>SHA256<br>무결성 검증</div>
+  <div class="step"><div class="n">4</div><br>교체·재시작<br>(데이터 유지)</div>
+</div>
+
+<!-- ===================== PAGE 3 : 운영/데이터/가이드 ===================== -->
+<div class="page-break"></div>
+<h2>3. 데이터 안전 · 마이그레이션</h2>
+<div class="card">
+  <div class="t">운영 데이터는 업데이트로 절대 손상되지 않습니다</div>
+  <p>데이터는 설치 폴더가 아니라 아래 경로에 저장되며, 업데이트는 프로그램(exe·내부 파일)만 교체합니다.</p>
+  <p><code>%APPDATA%\도수치료예약\  clinic.db / config.json / schema_version.txt / backups\</code></p>
+</div>
+<table>
+  <thead>
+    <tr><th style="width:18%">마이그레이션</th><th style="width:42%">내용</th><th>안전성</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>m044</strong></td><td>기록 메모 컬럼 추가</td><td>컬럼 추가만 · 기존 데이터 전량 보존</td></tr>
+    <tr><td><strong>m045</strong></td><td>야간당직 퇴근시각(end_time) 컬럼 추가</td><td>재실행 안전 · 무손실</td></tr>
+  </tbody>
+</table>
+
+<h2>4. 사용 가이드</h2>
+<div class="card">
+  <div class="t">자동 업데이트 설정</div>
+  <p>관리자 탭의 <strong>업데이트 매니페스트 URL</strong> 입력란에 아래 주소만(앞뒤 공백 없이) 입력 후 저장하고 “업데이트 확인”을 누르면 됩니다. ZIP 주소·SHA256은 직접 입력하지 않습니다.</p>
+  <p><code>https://hu28035036-ux.github.io/clinic-updates/manifest.json</code></p>
+</div>
+<div class="card">
+  <div class="t">기본 관리자 비밀번호</div>
+  <p>초기값 <code>admin1234</code> — 첫 로그인 후 관리자 탭에서 <strong>반드시 변경</strong>하세요.</p>
+</div>
+<div class="card">
+  <div class="t">화면이 갱신되지 않을 때</div>
+  <p>업데이트 후 화면이 이전과 같아 보이면 <code>Ctrl + Shift + R</code> 로 캐시를 새로고침하세요.</p>
+</div>
+
+<h2>5. 배포 정보</h2>
+<table>
+  <thead>
+    <tr><th style="width:28%">항목</th><th>값</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>제품 소스</td><td>hu28035036-ux/clinic-app</td></tr>
+    <tr><td>배포 채널</td><td>hu28035036-ux/clinic-updates (매니페스트 + 릴리스 노트)</td></tr>
+    <tr><td>현재 버전</td><td>v1.3.56 (2026-07-24)</td></tr>
+    <tr><td>강제 업데이트</td><td>아니오 (mandatory = false)</td></tr>
+  </tbody>
+</table>
+
+<div class="lead">
+  본 문서는 도수치료예약 v1.3.56 기준 상품 설계서입니다. 세부 변경 이력은 각 릴리스 노트(<code>release-v*.md</code>)를 참고하세요.
+</div>
+
+</body>
+</html>
