@@ -9,8 +9,7 @@
 > | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
 > | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
 > | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
-> | 현재 배포 중(매니페스트) | **v1.3.56** (2026-07-24) — 정산 확정(잠금) |
-> | 코드 준비 완료(배포 대기) | **v1.3.57** (2026-07-24) — 기록 메모+야간당직, PC 빌드 후 publish 예정 |
+> | 현재 배포 중(매니페스트) | **v1.3.57** (2026-07-24) — 기록 메모 + 야간당직 퇴근시간 |
 
 ---
 
@@ -107,30 +106,24 @@ ZIP 주소·SHA256은 직접 입력하지 않는다. 저장 후 `업데이트 �
 
 ## 8. 최신 배포
 
-### 현재 배포 중 — v1.3.56 · 2026-07-24 (매니페스트 서빙 중) — 정산 확정(잠금)
+### 현재 배포 중 — v1.3.57 · 2026-07-24 (매니페스트 서빙 중) — 기록 메모 + 야간당직 퇴근시간
+
+- ZIP: [`dosu_clinic_v1.3.57_20260724.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.57/dosu_clinic_v1.3.57_20260724.zip) (25.2 MB, GitHub Release 자산)
+- SHA256: `d7728971fb13c48096db77c8b05421d80398286a9ba2be002257dd83094f3b17`
+- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 1.3.57`)
+- 변경 요약 ([상세](release-v1.3.57.md)):
+  - **기록 탭 "메모" 칸 추가** — 차트번호·성함·직원 옆 선택 입력(최대 200자).
+  - **야간당직 퇴근시간·시간 집계** — 직원별 퇴근시각 입력, 기준 퇴근시간(기본 18:30) 초과분을
+    "야간당직 시간"으로 "과별 당직 횟수" 요약에 표시(자정 넘김 처리, 야간당직 전용).
+  - DB 마이그레이션 m044(기록 메모) + m045(야간당직 end_time) — 컬럼 추가만, 기존 `clinic.db` 전량 보존.
+  - ※ 당초 v1.3.56 으로 준비했으나 정산 확정(잠금)이 v1.3.56 으로 먼저 배포되어 v1.3.57 로 재배정.
+
+### 직전 배포 — v1.3.56 · 2026-07-24 — 정산 확정(잠금)
 
 - ZIP: [`dosu_clinic_v1.3.56_20260724.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.56/dosu_clinic_v1.3.56_20260724.zip) (25.2 MB, GitHub Release 자산)
 - SHA256: `6103ae4fe427d67fa3f045be3234e6b0ce22e1fc9b7e16796c075fc0ea6f005d`
-- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 1.3.56`)
 - 변경 요약 ([상세](release-v1.3.56.md)): 정산 확정(잠금) — 매월 1일에 2달 전 정산이 자동 확정되어
   금액 고정(급여 근거 보존). DB·마이그레이션 변동 없음.
-- 직전 배포: v1.3.55 (2026-07-16) — 휴무 카운트·과별 보기 + 집계→정산 자동 반영 ([상세](release-v1.3.55.md)).
-
-### 다음 배포 — v1.3.57 · 2026-07-24 (코드 준비 완료, 빌드/배포 대기 ⏳)
-
-> ※ 당초 v1.3.56 으로 준비했으나 정산 확정(잠금)이 v1.3.56 으로 먼저 배포되어 **v1.3.57 로 재배정**.
-
-- 상태: **`clinic-app` main 에 코드 병합 완료.** PC에서 빌드 후 `publish_release.ps1` 실행 시 실제 배포(Release 자산 + manifest.json 갱신)가 이뤄진다.
-- ZIP: `dosu_clinic_v1.3.57_20260724.zip` — **빌드 후 생성**.
-- SHA256: **빌드 후 `publish_release.ps1`이 자동 계산·주입**.
-- 릴리스 노트: [release-v1.3.57.md](release-v1.3.57.md) · 매니페스트 평문: [manifest-notes-v1.3.57.txt](manifest-notes-v1.3.57.txt) (미리 커밋됨).
-- 변경 요약:
-  - **기록 탭 "메모" 칸 추가** — 차트번호·성함·직원 옆 선택 입력(최대 200자). 차트번호 또는 성함은 여전히 필수.
-  - **야간당직 퇴근시간·시간 집계** — 직원별 퇴근시각 입력, 기준 퇴근시간(기본 18:30) 초과분을
-    "야간당직 시간"으로 "과별 당직 횟수" 요약에 표시(자정 넘김 처리, 야간당직 전용).
-- DB 마이그레이션 m044(기록 메모) + m045(야간당직 end_time) — 컬럼 추가만, 기존 `clinic.db` 전량 보존.
-
-> 배포 절차(PC): `clinic-app` 에서 병합 브랜치 준비(버전 1.3.57 재번호) → `pyinstaller.exe dosu_clinic.spec` 빌드 → `scripts\publish_release.ps1 -Version 1.3.57 -ZipPath ... -NotesPath ..\clinic-updates\release-v1.3.57.md -ManifestNotesPath ..\clinic-updates\manifest-notes-v1.3.57.txt`.
-> 스크립트 실행이 끝나면 manifest.json 이 v1.3.57 로 바뀌고, 이 섹션의 "다음 배포"를 "현재 배포 중"으로 옮기면 된다.
+- 그 이전: v1.3.55 (2026-07-16) — 휴무 카운트·과별 보기 + 집계→정산 자동 반영 ([상세](release-v1.3.55.md)).
 
 > 버전별 상세 변경 이력은 각 `release-v*.md` 파일을 참고한다.
