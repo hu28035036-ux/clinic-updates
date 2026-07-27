@@ -9,7 +9,7 @@
 > | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
 > | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
 > | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
-> | 현재 배포 중(매니페스트) | **v2.0.0** (2026-07-27) — 사내 채팅 + 이름 변경(병원관리) + AI 제외 + 안정성 |
+> | 현재 배포 중(매니페스트) | **v2.0.1** (2026-07-27) — 배포본 정리 (기능은 v2.0.0 과 동일) |
 
 ---
 
@@ -112,7 +112,19 @@ v2.0.0 첫 실행 때 옛 폴더(`%APPDATA%\도수치료예약\`)에서 자동�
 
 ## 8. 최신 배포
 
-### 현재 배포 중 — v2.0.0 · 2026-07-27 (매니페스트 서빙 중) — 사내 채팅 + 이름 변경 + 안정성
+### 현재 배포 중 — v2.0.1 · 2026-07-27 (매니페스트 서빙 중) — 배포본 정리
+
+- ZIP: [`dosu_clinic_v2.0.1_20260727.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.1/dosu_clinic_v2.0.1_20260727.zip) (20.0 MB, GitHub Release 자산)
+- SHA256: `bf7a1e1ac93de4d7e79bcd1e7bea248f48cc3f22ae777c10899b58335243078b`
+- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 2.0.1`)
+- 변경 요약 ([상세](release-v2.0.1.md)):
+  - **화면·기능·데이터는 v2.0.0 과 동일하다.** v2.0.0 을 이미 설치했다면 급하지 않다.
+  - `도구/build_knowledge_index.py` 제거 — v2.0.0 에서 뺀 AI 기능 시절의 죽은
+    스크립트가 배포본에 남아 있었다. 실행되지 않아 영향은 없었다.
+  - 잔재 검사에 `tools/` 추가 — `dosu_clinic.spec` 의 datas 에는 없지만 ZIP 패키징
+    단계가 `도구/` 로 복사한다. **검사 범위와 배포 범위가 어긋나 있던 것**을 맞췄다.
+
+### 직전 배포 — v2.0.0 · 2026-07-27 — 사내 채팅 + 이름 변경 + 안정성
 
 - ZIP: [`dosu_clinic_v2.0.0_20260727.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.0/dosu_clinic_v2.0.0_20260727.zip) (20.0 MB, GitHub Release 자산)
 - SHA256: `461866e3beb4e031096f02434892bfa12836dc5833f44a053d54e273cc49e7f1`
@@ -128,7 +140,7 @@ v2.0.0 첫 실행 때 옛 폴더(`%APPDATA%\도수치료예약\`)에서 자동�
   - ⚠ **v1.3.58 을 먼저 설치해야 한다** — 이름이 바뀌는 업데이트라 v1.3.57 이하의
     업데이터는 실패하고 되돌린다.
 
-### 직전 배포 — v1.3.58 · 2026-07-26 — 자동 업데이트 준비 (화면·기능 변화 없음)
+### 이전 배포 — v1.3.58 · 2026-07-26 — 자동 업데이트 준비 (화면·기능 변화 없음)
 
 - ZIP: [`dosu_clinic_v1.3.58_20260726.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v1.3.58/dosu_clinic_v1.3.58_20260726.zip) (24.1 MB, GitHub Release 자산)
 - SHA256: `4022f789c490b63a360ea37ff44e13ba4f6730528339570e374cafc9edacc703`
