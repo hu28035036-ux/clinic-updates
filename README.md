@@ -9,7 +9,7 @@
 > | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
 > | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
 > | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
-> | 현재 배포 중(매니페스트) | **v2.0.2** (2026-07-29) — 조용히 잘못되던 것 차단 (환자 동시 수정·백업 감시·개인정보 마스킹·포트 자동 전환) |
+> | 현재 배포 중(매니페스트) | **v2.0.3** (2026-07-29) — 채팅 폼 취소 버튼 (사용자 신고). 그 앞 v2.0.2 = 조용히 잘못되던 것 차단 |
 
 ---
 
@@ -112,7 +112,29 @@ v2.0.0 첫 실행 때 옛 폴더(`%APPDATA%\도수치료예약\`)에서 자동�
 
 ## 8. 최신 배포
 
-### 현재 배포 중 — v2.0.2 · 2026-07-29 (매니페스트 서빙 중) — 조용히 잘못되던 것 차단
+### 현재 배포 중 — v2.0.3 · 2026-07-29 (매니페스트 서빙 중) — 채팅 폼 취소 버튼
+
+- ZIP: [`dosu_clinic_v2.0.3_20260729.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.3/dosu_clinic_v2.0.3_20260729.zip) (20.3 MB, GitHub Release 자산)
+- SHA256: `ce218e195846b82b008b398a9a390ab15810f600f4572499990fb1fa829645ed`
+- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 2.0.3`)
+- **DB 변동 없음** — 마이그레이션은 v2.0.2 의 m046 그대로.
+- 변경 요약:
+  - 채팅 "단체방 만들기"·"초대" 화면에 **취소 버튼**. 사용자 신고.
+    ⚠ `setPane('form')` 이 헤더의 뒤로(←)까지 숨긴다
+    (`!inRoom || state.split` — form 은 inRoom 이 아니다). 폼에 '만들기' 하나뿐이라
+    **좁은 화면에서는 채팅창을 통째로 닫는 것 말고 빠져나갈 길이 없었다.**
+    2단 화면은 왼쪽 목록으로 탈출 가능해 여태 안 드러났다.
+    취소가 가는 곳이 다르다 — 방 만들기는 목록으로, 초대는 **왔던 방**으로.
+- **업데이트가 데이터를 건드리지 않는 것을 실증했다** (사용자 요청):
+  환자 30명 + 사용자가 바꾼 설정 3개(이름·운영시간·포트 8123)를 담은 데이터
+  폴더에 v2.0.2 설치본을 두고 **진짜 `updater.bat`** 을 실행.
+  프로그램은 v2.0.2 → v2.0.3(168 파일 교체), 데이터는 **8개 항목 전부 동일**
+  (clinic.db 논리내용 해시 · 테이블 41 · 행수 · 무결성 ok · config.json ·
+  schema_version.txt · default_treatments.json · 폴더 목록).
+  업데이트된 exe 로 그 데이터를 다시 열어 포트 8123 유지 · 환자 30명 · DB 정상 확인.
+- 검증: 1,665 passed / 2 skipped / 10 xfailed · ruff 클린 · 브라우저 실측.
+
+### 직전 배포 — v2.0.2 · 2026-07-29 — 조용히 잘못되던 것 차단
 
 - ZIP: [`dosu_clinic_v2.0.2_20260729.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.2/dosu_clinic_v2.0.2_20260729.zip) (20.3 MB, GitHub Release 자산)
 - SHA256: `1108a968cbafaaff64d9555238f9fb4a6d5295c63a3f0cc5ce40e0a6619a2ba9`
@@ -137,7 +159,7 @@ v2.0.0 첫 실행 때 옛 폴더(`%APPDATA%\도수치료예약\`)에서 자동�
 - 검증: 1,663 passed / 2 skipped / 10 xfailed · ruff 클린 · DB 경로 안전검사 ·
   빌드본 기동 + m046 실행 확인 · 두 PC 동시 수정을 브라우저로 실측.
 
-### 직전 배포 — v2.0.1 · 2026-07-27 — 배포본 정리
+### 이전 배포 — v2.0.1 · 2026-07-27 — 배포본 정리
 
 - ZIP: [`dosu_clinic_v2.0.1_20260727.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.1/dosu_clinic_v2.0.1_20260727.zip) (20.0 MB, GitHub Release 자산)
 - SHA256: `bf7a1e1ac93de4d7e79bcd1e7bea248f48cc3f22ae777c10899b58335243078b`
