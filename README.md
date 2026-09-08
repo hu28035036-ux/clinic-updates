@@ -9,7 +9,8 @@
 > | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
 > | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
 > | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
-> | 현재 배포 중(매니페스트) | **v2.0.4** (2026-07-30) — 자동 업데이트가 굳어 있던 문제 해소. ⚠ **exe 이름이 `도수치료예약.exe` 다** (아래 참고) |
+> | 현재 배포 중(매니페스트) | **v2.0.5** (2026-09-08) — 예약 화면 "금일 예약 환자" 칸 찌그러짐 수정. ⚠ **exe 이름은 v2.0.4 와 같이 `도수치료예약.exe`** (브릿지 방식 유지, 아래 참고) |
+> | 직전 배포 | v2.0.4 (2026-07-30) — 자동 업데이트가 굳어 있던 문제 해소 (브릿지) |
 > | exe 이름이 옛것인 이유 | 설치된 PC 의 루트 `updater.bat` 이 5단계(≤v1.3.57) 구형으로 굳어 있고, 구형은 ZIP 안에서 `도수치료예약.exe` 를 **하드코딩으로** 찾는다. v2.0.x ZIP 은 `병원관리.exe` 라 `unexpected zip structure` → rollback 을 반복했다. v2.0.4 는 **옛 exe 이름 + 루트 6단계 updater** 를 함께 실어 구형도 처리할 수 있게 한 브릿지이고, 설치되는 순간 updater 가 교체된다. `APP_NAME` 은 그대로 `병원관리` 라 데이터 폴더 이전은 정상 동작하며, exe 파일명·바로가기 이름만 옛것으로 남는다. |
 > | 다음 정식 릴리스에서 | `DOSU_DIST_NAME` 을 **주지 않고** 빌드하면 기본값 `병원관리` 로 나가고, 6단계 updater 가 이름을 자동으로 바로잡는다. spec 기본값은 계속 `병원관리` 다. |
 
@@ -114,7 +115,31 @@ v2.0.0 첫 실행 때 옛 폴더(`%APPDATA%\도수치료예약\`)에서 자동�
 
 ## 8. 최신 배포
 
-### 현재 배포 중 — v2.0.3 · 2026-07-29 (매니페스트 서빙 중) — 채팅 폼 취소 버튼
+### 현재 배포 중 — v2.0.5 · 2026-09-08 (매니페스트 서빙 중) — 예약 화면 "금일 예약 환자" 칸 찌그러짐 수정
+
+- ZIP: [`dosu_clinic_v2.0.5_20260908.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.5/dosu_clinic_v2.0.5_20260908.zip) (20.3 MB · 21,245,305 bytes, GitHub Release 자산)
+- SHA256: `63f6bc9d19398f076d2e605ab7f8b81c12c1cd51fb81ebd8f65220a1d56da373`
+- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 2.0.5`)
+- **exe 이름은 v2.0.4 와 같이 `도수치료예약.exe`** — 브릿지 방식 유지. 구형(5단계)·신형(6단계) updater 모두 설치 가능.
+  이름 복원(정식 릴리스)은 hospital-management [2026-09-03 리뷰 §3](https://github.com/hu28035036-ux/hospital-management/blob/main/docs/superpowers/reviews/2026-09-03-full-review.md) 의
+  조건(전 PC v2.0.4 확인 · 동봉 도구/안내문 수정 · 빌드 스크립트 #48)을 갖춘 뒤로.
+- **DB 변동 없음** — 마이그레이션은 m046 그대로. 바뀐 것은 `app/static/css/app.css` 4곳뿐.
+- 변경 요약 ([상세](release-v2.0.5.md)):
+  - 예약 탭 사이드바 "금일 예약 환자" 칸 — 환자가 많은 날 치료사 그룹이 46px 로 눌리던 것(말줄임 규칙이 그룹 상자에
+    `overflow:hidden` 을 붙여 세로 flex 안에서 눌림), "금일 예약 취소" 칸이 범례 위로 새던 것(칸 자체의 `max-height`).
+    그룹 전부 펼침 + 스크롤 1곳 + 이름띠 sticky + 화면 기준 높이(`clamp`).
+- 빌드: `$env:DOSU_DIST_NAME = "도수치료예약"` + `pyinstaller dosu_clinic.spec`, ZIP 은 `build_and_publish.ps1` 과 같은 규칙으로 수동 포장
+  (스크립트는 BOM 이 없어 PS5.1 이 한글 경로를 못 읽는다 — 빌드는 성공하고 산출물 검사에서만 실패). ZIP 구조 v2.0.4 와 동일 확인
+  (최상위 `도수치료예약/`, exe 1개, 루트 `updater.bat` + `_internal/updater.bat`, 안내 txt 3, `도구/` 3).
+- 검증: 1,686 passed / 2 skipped / 10 xfailed · ruff 클린 · 브라우저 실측(720·950 높이).
+
+### 이전 배포 — v2.0.4 · 2026-07-30 — 자동 업데이트가 굳어 있던 문제 (브릿지)
+
+- ZIP: [`dosu_clinic_v2.0.4_20260730.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.4/dosu_clinic_v2.0.4_20260730.zip) (21,638,417 bytes)
+- SHA256: `183187a5705f0f5566a517ca0618f3e0ceeb7b972029d9c1abfbf70a8b93b2f5`
+- 상세는 상단 표와 [release-v2.0.4.md](release-v2.0.4.md).
+
+### 이전 배포 — v2.0.3 · 2026-07-29 — 채팅 폼 취소 버튼
 
 - ZIP: [`dosu_clinic_v2.0.3_20260729.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.3/dosu_clinic_v2.0.3_20260729.zip) (20.3 MB, GitHub Release 자산)
 - SHA256: `ce218e195846b82b008b398a9a390ab15810f600f4572499990fb1fa829645ed`
