@@ -9,8 +9,8 @@
 > | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
 > | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
 > | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
-> | 현재 배포 중(매니페스트) | **v2.0.7** (2026-10-14) — 매출은 현금기입장만 · 채팅방 참여자 표시 · 치료항목 설명 정리 · 정산 매출 참고 줄 제거. ⚠ **exe 이름은 v2.0.4~v2.0.6 과 같이 `도수치료예약.exe`** (브릿지 방식 유지, 아래 참고) |
-> | 직전 배포 | v2.0.6 (2026-10-08) — 치료 묶음 · 집계 기본 메뉴 이동 · 채팅 읽음 반복 수정 · 백업 경고 수정 (브릿지) |
+> | 현재 배포 중(매니페스트) | **v2.0.8** (2026-10-19) — 상단 메뉴로 변경 · 직원 권한 칸 묶음 표시 · 데이터변환 옛날 엑셀(.xls) 오류 수정. ⚠ **exe 이름은 v2.0.4~v2.0.7 과 같이 `도수치료예약.exe`** (브릿지 방식 유지, 아래 참고) |
+> | 직전 배포 | v2.0.7 (2026-10-14) — 매출은 현금기입장만 · 채팅방 참여자 표시 · 치료항목 설명 정리 · 정산 매출 참고 줄 제거 (브릿지) |
 > | exe 이름이 옛것인 이유 | 설치된 PC 의 루트 `updater.bat` 이 5단계(≤v1.3.57) 구형으로 굳어 있고, 구형은 ZIP 안에서 `도수치료예약.exe` 를 **하드코딩으로** 찾는다. v2.0.x ZIP 은 `병원관리.exe` 라 `unexpected zip structure` → rollback 을 반복했다. v2.0.4 는 **옛 exe 이름 + 루트 6단계 updater** 를 함께 실어 구형도 처리할 수 있게 한 브릿지이고, 설치되는 순간 updater 가 교체된다. `APP_NAME` 은 그대로 `병원관리` 라 데이터 폴더 이전은 정상 동작하며, exe 파일명·바로가기 이름만 옛것으로 남는다. |
 > | 다음 정식 릴리스에서 | `DOSU_DIST_NAME` 을 **주지 않고** 빌드하면 기본값 `병원관리` 로 나가고, 6단계 updater 가 이름을 자동으로 바로잡는다. spec 기본값은 계속 `병원관리` 다. |
 
@@ -115,24 +115,30 @@ v2.0.0 첫 실행 때 옛 폴더(`%APPDATA%\도수치료예약\`)에서 자동�
 
 ## 8. 최신 배포
 
-### 현재 배포 중 — v2.0.7 · 2026-10-14 (매니페스트 서빙 중) — 매출은 현금기입장만 · 채팅방 참여자 표시 · 치료항목 설명 정리 · 정산 매출 참고 줄 제거
+### 현재 배포 중 — v2.0.8 · 2026-10-19 (매니페스트 서빙 중) — 상단 메뉴로 변경 · 직원 권한 칸 묶음 표시 · 데이터변환 옛날 엑셀(.xls) 오류 수정
 
-- ZIP: [`dosu_clinic_v2.0.7_20261014.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.7/dosu_clinic_v2.0.7_20261014.zip) (20.3 MB · 21,262,536 bytes, GitHub Release 자산)
-- SHA256: `11f34b27c37330a160e1d1e50d5e780bb254162ecd1512855099c0e22f29d747` (공개 URL 로 실제 내려받아 일치 확인)
-- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 2.0.7`)
-- **exe 이름은 v2.0.4~v2.0.6 과 같이 `도수치료예약.exe`** — 브릿지 방식 유지. 구형(5단계)·신형(6단계) updater 모두 설치 가능.
+- ZIP: [`dosu_clinic_v2.0.8_20261019.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.8/dosu_clinic_v2.0.8_20261019.zip) (20.4 MB · 21,434,311 bytes, GitHub Release 자산)
+- SHA256: `c1c54cee5d4e17169bfa74fcfe395525fbe96881870f2f1271ff4c08d83dee3d` (공개 URL 로 실제 내려받아 일치 확인)
+- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 2.0.8`)
+- **exe 이름은 v2.0.4~v2.0.7 과 같이 `도수치료예약.exe`** — 브릿지 방식 유지. 구형(5단계)·신형(6단계) updater 모두 설치 가능.
   이름 복원(정식 릴리스)은 hospital-management [2026-09-03 리뷰 §3](https://github.com/hu28035036-ux/hospital-management/blob/main/docs/superpowers/reviews/2026-09-03-full-review.md) 의
   조건(전 PC v2.0.4 확인 · 동봉 도구/안내문 수정 · 빌드 스크립트 #48)을 갖춘 뒤로.
-- **DB·서버 API 변동 없음** — 마이그레이션은 m047 그대로. 바뀐 것은 화면 파일(`main.html` · `main.js` · `chat.js` · `chat.css`)뿐.
-- 변경 요약 ([상세](release-v2.0.7.md)):
-  - 관리자 › 매출 — '일일 현금기입장'만. 매출 기록 · 매출 통계 · 일일 업무 보고는 **화면만** 뺐다 (자료 · `/api/revenue/*` 보존).
-  - 현금기입장 저장 — 날짜만 바꾸고 '조회' 없이 저장하면 처음 불러온 날짜의 카드·이체·메모가 덮어써지던 문제 수정.
-  - 정산 화면 — '매출 기준 참고' 줄 제거 (앞으로 현금만 입력돼 실매출이 작게 나오므로).
-  - 사내 채팅 — 단체방·전체방 제목 아래 `참여 N명 · …` 한 줄 (초대하면 바로 갱신, 1:1 은 없음).
-  - 관리자 › 치료항목 — 표 아래 설명 7줄 삭제.
+- **DB·서버 API 변동 없음** — 마이그레이션은 m047 그대로. 데이터변환 읽기 코드(`api.py`)와 화면 파일(`main.html` · `main.js` · `app.css`)이 바뀌었고,
+  옛날 엑셀을 읽는 부품 **xlrd 2.0.1** 이 번들에 새로 들어갔다.
+- 변경 요약 ([상세](release-v2.0.8.md)):
+  - 화면 배치 — 왼쪽 세로 메뉴를 위쪽 제목줄과 한 줄로 합침 (하위 메뉴는 바 아래 둘째 줄). 메뉴 동작·기능 그대로.
+  - 직원 › 직원 관리 — '권한' 칸 · 과 기본 줄에서 묶음 치료를 전부 가지면 묶음 이름표 하나 (화면만, 저장·직원 창 그대로).
+  - 관리자 › 데이터변환 — 옛날 엑셀(.xls) 'CSV 텍스트 디코딩 실패' 수정. 내용으로 형식 판별 (.xlsx · .xls · HTML 표 .xls · 엑셀 2003 XML · CSV),
+    못 읽는 파일은 한국어 안내.
 - 빌드: `$env:DOSU_DIST_NAME = "도수치료예약"` + `venv\Scripts\python.exe -m PyInstaller --noconfirm dosu_clinic.spec`, ZIP 은
-  `build_and_publish.ps1` 4절과 같은 규칙으로 수동 포장. ZIP 항목 176개가 v2.0.6 과 완전히 같음.
-- 검증: 1,796 passed / 2 skipped / 10 xfailed · ruff 클린 · DB 경로 안전검사 · exe 안 `app.config` = 2.0.7 확인.
+  `build_and_publish.ps1` 4절과 같은 규칙으로 수동 포장. ZIP 항목 176개가 v2.0.7 과 완전히 같음.
+- 검증: 1,845 passed / 2 skipped / 10 xfailed · ruff 클린 · DB 경로 안전검사 · exe 안 `app.config` = 2.0.8 · xlrd 포함 확인.
+
+### 이전 배포 — v2.0.7 · 2026-10-14 — 매출은 현금기입장만 · 채팅방 참여자 표시 · 치료항목 설명 정리 · 정산 매출 참고 줄 제거 (브릿지)
+
+- ZIP: [`dosu_clinic_v2.0.7_20261014.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.7/dosu_clinic_v2.0.7_20261014.zip) (21,262,536 bytes)
+- SHA256: `11f34b27c37330a160e1d1e50d5e780bb254162ecd1512855099c0e22f29d747`
+- 상세는 [release-v2.0.7.md](release-v2.0.7.md). DB·서버 API 변동 없음.
 
 ### 이전 배포 — v2.0.6 · 2026-10-08 — 치료 묶음 · 집계 기본 메뉴 이동 · 채팅 읽음 반복 수정 · 백업 경고 수정 (브릿지)
 
