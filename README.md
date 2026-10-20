@@ -9,8 +9,8 @@
 > | 저장소 역할 | **배포 채널** (매니페스트 + 릴리스 노트) |
 > | 매니페스트 URL | `https://hu28035036-ux.github.io/clinic-updates/manifest.json` |
 > | 배포 자산 | ZIP = **GitHub Release 자산** (저장소에 커밋 안 함) |
-> | 현재 배포 중(매니페스트) | **v2.0.9** (2026-10-19) — 업데이트 멈춤 안전장치 · 새 예약 창 08:00 · 치료항목 '도수 한도에 포함' 칸(m048) · 집계 직원 고르기 · 정산 한 장 인쇄. ⚠ **v2.0.8 업데이트가 '업데이트 진행 중' 에서 멈춘 PC 는 이번 한 번 수동 설치** (안전장치는 v2.0.9 가 설치된 다음 업데이트부터 작동). ⚠ **exe 이름은 v2.0.4~v2.0.8 과 같이 `도수치료예약.exe`** (브릿지 방식 유지, 아래 참고) |
-> | 직전 배포 | v2.0.8 (2026-10-19) — 상단 메뉴로 변경 · 직원 권한 칸 묶음 표시 · 데이터변환 옛날 엑셀(.xls) 오류 수정 (브릿지) |
+> | 현재 배포 중(매니페스트) | **v2.0.10** (2026-10-20) — 직원 추가근무 탭(m049) · 기록 환자 찾기 · '현금' 메뉴 · 예약표 표시 직원 · 권한 '기본' 빼기 · 업데이트 새 실행기. ⚠ **이번 설치는 예전 방식(검은 창 약 20초)으로 진행 — 새 실행기는 v2.0.10 이 설치된 다음 업데이트부터 작동.** ⚠ **exe 이름은 v2.0.4~v2.0.9 와 같이 `도수치료예약.exe`** (브릿지 방식 유지, 아래 참고) |
+> | 직전 배포 | v2.0.9 (2026-10-19) — 업데이트 멈춤 안전장치 · 새 예약 창 08:00 · 도수 한도 칸(m048) · 집계 직원 고르기 · 정산 한 장 인쇄 (브릿지) |
 > | exe 이름이 옛것인 이유 | 설치된 PC 의 루트 `updater.bat` 이 5단계(≤v1.3.57) 구형으로 굳어 있고, 구형은 ZIP 안에서 `도수치료예약.exe` 를 **하드코딩으로** 찾는다. v2.0.x ZIP 은 `병원관리.exe` 라 `unexpected zip structure` → rollback 을 반복했다. v2.0.4 는 **옛 exe 이름 + 루트 6단계 updater** 를 함께 실어 구형도 처리할 수 있게 한 브릿지이고, 설치되는 순간 updater 가 교체된다. `APP_NAME` 은 그대로 `병원관리` 라 데이터 폴더 이전은 정상 동작하며, exe 파일명·바로가기 이름만 옛것으로 남는다. |
 > | 다음 정식 릴리스에서 | `DOSU_DIST_NAME` 을 **주지 않고** 빌드하면 기본값 `병원관리` 로 나가고, 6단계 updater 가 이름을 자동으로 바로잡는다. spec 기본값은 계속 `병원관리` 다. |
 
@@ -115,30 +115,39 @@ v2.0.0 첫 실행 때 옛 폴더(`%APPDATA%\도수치료예약\`)에서 자동�
 
 ## 8. 최신 배포
 
-### 현재 배포 중 — v2.0.9 · 2026-10-19 (매니페스트 서빙 중) — 업데이트 멈춤 안전장치 · 새 예약 창 08:00 · 도수 한도 칸 · 집계 직원 고르기 · 정산 한 장 인쇄
+### 현재 배포 중 — v2.0.10 · 2026-10-20 (매니페스트 서빙 중) — 직원 추가근무 탭 · 기록 환자 찾기 · '현금' 메뉴 · 예약표 표시 직원 · 권한 '기본' 빼기 · 업데이트 새 실행기
 
-- ZIP: [`dosu_clinic_v2.0.9_20261019.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.9/dosu_clinic_v2.0.9_20261019.zip) (20.4 MB · 21,443,349 bytes, GitHub Release 자산)
-- SHA256: `66554ee9125ef52bca87047fe9a65ab0cd3947e5d4299e28624916ceb4e77b31` (공개 URL 로 실제 내려받아 일치 확인)
-- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 2.0.9`)
-- ⚠ **v2.0.8 업데이트가 '업데이트 진행 중' 에서 멈춘 PC 는 이번 한 번 수동 설치.** 업데이트를 실제로 진행하는 것은 이미 설치된
-  옛 버전(서버 + 루트 `updater.bat`)이라, 이번 안전장치는 v2.0.9 가 설치된 **다음** 업데이트부터 작동한다.
-  안내문 「수동 설치 방법 (메인 PC)」 은 이 ZIP 을 받아 프로그램 폴더를 바꾸는 순서(백업 · 되돌리기 포함)다.
-- **exe 이름은 v2.0.4~v2.0.8 과 같이 `도수치료예약.exe`** — 브릿지 방식 유지. 구형(5단계)·신형(6단계) updater 모두 설치 가능.
-  이름 복원(정식 릴리스)은 hospital-management [2026-09-03 리뷰 §3](https://github.com/hu28035036-ux/hospital-management/blob/main/docs/superpowers/reviews/2026-09-03-full-review.md) 의
-  조건(전 PC v2.0.4 확인 · 동봉 도구/안내문 수정 · 빌드 스크립트 #48)을 갖춘 뒤로.
-- **DB 변동: 마이그레이션 m048** — `treatments.counts_manual_limit` 칸 추가만 (멱등, 값이 비어 있으면 예전 자동 규칙). 서버 API 는
-  `treatment-meta` 에 `treatment_counts_manual`, 치료항목 생성·수정에 `counts_manual_limit`, 업데이트 적용 응답에 `app_exe` · `current_version` 가 늘었다.
-  `updater.bat` 은 바꾸지 않았다 (업데이트 도중 덮어써지는 파일 — 리뷰 #14).
-- 변경 요약 ([상세](release-v2.0.9.md)):
-  - 자동 업데이트 — 서버는 `updater.bat` 이 로그에 `OLDEXE=` 를 쓴 것을 본 뒤에만 꺼진다 (10초 안에 못 보면 꺼지지 않고 오류 안내).
-    진행 화면은 실제 exe 이름으로 안내하고, 2분 뒤 다시 켜는 방법, 다시 켜진 서버가 이전 버전이면 '적용되지 않았습니다', 30분까지 확인.
-  - 예약 — 환자 검색 '예약' · 신규 환자 등록 뒤 예약은 08:00 으로 열림 (예약판 칸 클릭은 그 칸 시각 그대로).
-  - 관리자 › 치료항목 — '도수치료 동시 예약 한도에 포함' 칸 · 표 '도수 한도' 열. 오전 9시 전 예약이 한도 계산에서 빠지던 문제 수정.
-  - 집계 — 과를 고른 뒤 직원 여러 명 골라 보기 (화면에서만 거름).
-  - 관리자 › 정산 — 인쇄가 한 장 요약 (제목·기간·과·출력 시각, 직원별·치료항목별 합계).
-- 빌드: `$env:DOSU_DIST_NAME = "도수치료예약"` + `venv\Scripts\python.exe -m PyInstaller --noconfirm dosu_clinic.spec`, ZIP 은
-  `build_and_publish.ps1` 4절과 같은 규칙으로 수동 포장. ZIP 항목 176개가 v2.0.8 과 완전히 같음.
-- 검증: 1,890 passed / 2 skipped / 10 xfailed · ruff 클린 · DB 경로 안전검사 · exe 안 `app.config` = 2.0.9 · m048 · `OLDEXE=` 표식 · 화면 파일 = 레포 확인.
+- ZIP: [`dosu_clinic_v2.0.10_20261020.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.10/dosu_clinic_v2.0.10_20261020.zip) (20.5 MB · 21,490,483 bytes, GitHub Release 자산)
+- SHA256: `1482506dfa0537c4e5897d22f994b1a080614449dab059a4e3f15bac32ab9c93` (공개 URL 로 실제 내려받아 일치 확인)
+- 매니페스트: [`manifest.json`](https://hu28035036-ux.github.io/clinic-updates/manifest.json) (`version: 2.0.10`)
+- ⚠ **이번 설치는 설치된 옛 `updater.bat` 으로 진행된다 (검은 창 약 20초 — 누르거나 닫지 말 것).** 이번에 넣은 새 업데이트 실행기
+  (`update_runner.bat`, `_internal\` 에만)는 v2.0.10 이 설치된 **다음** 업데이트부터 쓰인다 — 검은 창 없이 진행하고, 새 버전이
+  못 켜지면 이전 버전으로 되돌려 다시 켠다. 첫 실전은 v2.0.11 (병원 PC 한 곳에서 `%TEMP%\clinic_updater.log` 첫 줄 `update_runner start` ·
+  끝 줄 `RESULT=OK` 확인).
+- ⚠ v2.0.8 이하에서 업데이트가 '업데이트 진행 중' 에서 멈췄던 PC 는 이번에도 수동 설치 (안내문 「수동 설치 방법 (메인 PC)」).
+- ⚠ 옛 방식 업데이트 로그에는 '업데이트 성공' 줄이 원래 안 남는다 (동결된 `updater.bat` 의 읽기 경계 — hospital-management HANDOFF §3-M) — 실패로 읽지 말 것.
+- **exe 이름은 v2.0.4~v2.0.9 와 같이 `도수치료예약.exe`** — 브릿지 방식 유지. 루트 `updater.bat` = `_internal\updater.bat` = 동결 지문 `6955d2fb…d29c` (#14).
+- **DB 변동: 마이그레이션 m049** — 새 표 `employee_overtimes` + 야간당직 옛 퇴근시각을 추가근무로 옮기기 (멱등, 옛 값은 지우지 않음).
+  서버 API 가 늘었다: `GET /api/employee-overtimes` · `POST /api/employee-overtimes/bulk-set` · `GET/POST /api/revenue/cash-ledger` ·
+  `GET /api/records/search` (모두 로그인 없음) · 업데이트 적용은 새 실행기 방식.
+- 변경 요약 ([상세](release-v2.0.10.md)):
+  - 직원 › 추가근무 — 달력 날짜별 직원별 분, 달력 아래 그 달 합계. 두 PC 에서 같은 날짜를 저장해도 고친 칸만 저장된다.
+  - 기록 › 환자 찾기 — 치료항목 · 날짜 상관없이 이름 · 차트번호로 찾고, 찾은 목록에서 바로 수정 · 삭제.
+  - 야간당직 — 퇴근시각 입력을 뺐다 (옛 값은 업데이트 때 추가근무로). 아침/점심 '당직 추가' 저장 안 되던 문제 수정.
+  - 관리자 › 매출 → 위쪽 '현금' 메뉴 (누구나 보고 저장, 현금 칸만).
+  - 예약표 표시 직원 = '도수 한도' 치료항목 권한이 있는 직원 · 권한 이름표 ' 기본' 꼬리말 빼기.
+  - 업데이트 새 실행기 — 실제 빌드 리허설(옛 방식 · 새 방식 · 망가진 새 버전 되돌리기) 결과는 hospital-management HANDOFF §3-M.
+- 빌드: `$env:DOSU_DIST_NAME = "도수치료예약"` + `venv\Scripts\python.exe -m PyInstaller --noconfirm dosu_clinic.spec`, ZIP 은 수동 포장.
+  ZIP 항목 177개 = v2.0.9 의 176개 + `_internal/update_runner.bat`. 새 서버의 `prepare_update_package` 검사도 통과.
+- 검증: 2,191 passed / 2 skipped / 10 xfailed · ruff 클린 · DB 경로 안전검사 · exe 안 `app.config` = 2.0.10 · m049 · 새 창구 4개 ·
+  새 실행기 · 동결 updater 지문 · 화면 파일 = 레포 확인.
+
+### 이전 배포 — v2.0.9 · 2026-10-19 — 업데이트 멈춤 안전장치 · 새 예약 창 08:00 · 도수 한도 칸 · 집계 직원 고르기 · 정산 한 장 인쇄 (브릿지)
+
+- ZIP: [`dosu_clinic_v2.0.9_20261019.zip`](https://github.com/hu28035036-ux/clinic-updates/releases/download/v2.0.9/dosu_clinic_v2.0.9_20261019.zip) (21,443,349 bytes)
+- SHA256: `66554ee9125ef52bca87047fe9a65ab0cd3947e5d4299e28624916ceb4e77b31`
+- 상세는 [release-v2.0.9.md](release-v2.0.9.md). 마이그레이션 m048 (`treatments.counts_manual_limit` 칸 추가만).
+- ⚠ v2.0.8 업데이트가 멈춘 PC 는 수동 설치 (서버 쪽 안전장치는 v2.0.9 가 설치된 다음 업데이트부터 작동).
 
 ### 이전 배포 — v2.0.8 · 2026-10-19 — 상단 메뉴로 변경 · 직원 권한 칸 묶음 표시 · 데이터변환 옛날 엑셀(.xls) 오류 수정 (브릿지)
 
